@@ -3,14 +3,14 @@ import os
 import shutil
 import random
 
-all_images_dir = './all/images'
-all_labels_dir = './all/labels'
+all_images_dir = './mark/images'
+all_labels_dir = './mark/labels'
 
-train_images_dir = './dataset/images/train'
-train_labels_dir = './dataset/labels/train'
+train_images_dir = './dataset/train/images'
+train_labels_dir = './dataset/train/labels'
 
-valid_images_dir = './dataset/images/val'
-valid_labels_dir = './dataset/labels/val'
+valid_images_dir = './dataset/valid/images'
+valid_labels_dir = './dataset/valid/labels'
 
 images_all = os.listdir(all_images_dir)
 

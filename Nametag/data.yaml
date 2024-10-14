@@ -3,6 +3,6 @@ path: E:/Repositories/Git/OnlineRepositories/Self-Learning/Nametag/dataset
 train: train/images
 val: valid/images
 
-nc: 1
+nc: 3
 
-names: ['nametag']
+names: ['staff', 'person', 'nametag']
