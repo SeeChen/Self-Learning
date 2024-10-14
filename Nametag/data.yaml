@@ -1,0 +1,8 @@
+path: E:/Repositories/Git/OnlineRepositories/Self-Learning/Nametag/dataset
+
+train: train/images
+val: valid/images
+
+nc: 1
+
+names: ['nametag']
