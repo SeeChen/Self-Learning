@@ -16,7 +16,8 @@ def train():
         imgsz=640,
         batch=32,
         workers=16,
-        name='train_model'
+        name='train_model',
+        save=True
     )
     
     model.export(format='onnx')
