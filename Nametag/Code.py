@@ -8,7 +8,7 @@ from ultralytics import YOLO
 
 def train():
 
-    model = YOLO('./yolov8n.pt')
+    model = YOLO('./best_v1.pt')
     
     model.train(
         data='data.yaml',
@@ -137,8 +137,8 @@ def devide_data():
 
 if __name__ == '__main__':
     
-    # train()
+    train()
     # detect_video()
-    detect_all_frame()
+    # detect_all_frame()
     # devide_data()
     pass
