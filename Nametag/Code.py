@@ -54,12 +54,19 @@ def detect_video():
             break
 
         results = model.predict(frame, classes=[0])
-        print(results[0])
-        annotated_frame = results[0].plot()
+        # annotated_frame = results[0].plot()
+        
+        for result in results[0].boxes:
+            x1, y1, x2, y2 = map(int, result.xyxy[0])
+            
+            color = (0, 255, 0)
+            thickness = 2
+            
+            cv2.rectangle(frame, (x1, y1), (x2, y2), color, thickness)
+            
+        out.write(frame)
 
-        out.write(annotated_frame)
-
-        cv2.imshow('Detection', annotated_frame)
+        cv2.imshow('Detection', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
@@ -146,7 +153,7 @@ if __name__ == '__main__':
     
     # train()
     # detect_video()
-    detect_all_frame()
+    # detect_all_frame()
     # devide_data()
     # check_model()
     pass
