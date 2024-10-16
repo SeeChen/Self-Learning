@@ -8,7 +8,7 @@ from ultralytics import YOLO
 
 def train():
 
-    model = YOLO('best_v1.pt')
+    model = YOLO('yolov8n.pt')
     
     model.train(
         data='data.yaml',
@@ -31,7 +31,7 @@ def check_model():
     
 def detect_video():
 
-    model = YOLO('best_v2.pt')
+    model = YOLO('best_v3.pt')
 
     video_path = 'sample.mp4'
     cap = cv2.VideoCapture(video_path)
@@ -53,7 +53,8 @@ def detect_video():
         if not ret:
             break
 
-        results = model(frame)
+        results = model.predict(frame, classes=[0])
+        print(results[0])
         annotated_frame = results[0].plot()
 
         out.write(annotated_frame)
@@ -69,9 +70,9 @@ def detect_video():
     
 def detect_all_frame():
 
-    model = YOLO('best_v2.pt')
+    model = YOLO('best_v3.pt')
     
-    frames_all_path = 'tt'
+    frames_all_path = 'frames_all'
     frames = os.listdir(frames_all_path)
     
     path_output = 'output'
@@ -91,7 +92,6 @@ def detect_all_frame():
                 for box in result.boxes:
                     class_id = int(box.cls)
                     
-                    confidence = box.conf.item()
                     x_center = box.xywh[0, 0].item()
                     y_center = box.xywh[0, 1].item()
                     width = box.xywh[0, 2].item()
@@ -146,7 +146,7 @@ if __name__ == '__main__':
     
     # train()
     # detect_video()
-    # detect_all_frame()
-    devide_data()
+    detect_all_frame()
+    # devide_data()
     # check_model()
     pass
