@@ -8,24 +8,30 @@ from ultralytics import YOLO
 
 def train():
 
-    model = YOLO('./best_v1.pt')
+    model = YOLO('best_v1.pt')
     
     model.train(
         data='data.yaml',
         epochs=1000,
         imgsz=640,
-        batch=32,
+        batch=8,
         workers=16,
         name='train_model',
         save=True
     )
     
     model.export(format='onnx')
+    
+
+def check_model():
+    model = YOLO('best_v1.pt')
+    # print(model.model)
+    # print(len(list(model.model.children())))
    
     
 def detect_video():
 
-    model = YOLO('best.pt')
+    model = YOLO('best_v2.pt')
 
     video_path = 'sample.mp4'
     cap = cv2.VideoCapture(video_path)
@@ -52,7 +58,7 @@ def detect_video():
 
         out.write(annotated_frame)
 
-        cv2.imshow('YOLOv8 Person Detection', annotated_frame)
+        cv2.imshow('Detection', annotated_frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
@@ -63,9 +69,9 @@ def detect_video():
     
 def detect_all_frame():
 
-    model = YOLO('best.pt')
+    model = YOLO('best_v2.pt')
     
-    frames_all_path = 'frames_all'
+    frames_all_path = 'tt'
     frames = os.listdir(frames_all_path)
     
     path_output = 'output'
@@ -138,8 +144,9 @@ def devide_data():
 
 if __name__ == '__main__':
     
-    train()
+    # train()
     # detect_video()
     # detect_all_frame()
-    # devide_data()
+    devide_data()
+    # check_model()
     pass
