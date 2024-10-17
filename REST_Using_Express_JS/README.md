@@ -147,10 +147,9 @@ The complete codebase for this training is available in [Code.py](./Code.py).
 
 `devide_data()`
 > Splits the dataset to [train](./dataset/train/) and [validation](./dataset/valid/) subsets.
-
+-->
 ---
 <div align="right">
--->
 
 ###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 17-OCT-2024 14:12 UTC +08:00*
 </div>
