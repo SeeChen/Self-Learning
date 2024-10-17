@@ -41,10 +41,14 @@ Self-iteration refers to a process where the model continuously uses its own out
 First of all, I randomly selected 370 pictures from a total of 1370 frames, and then annotated the nametags, person, and staff. The initial training aimed to establish a baseline for object detection.
 
 ### 4.2 First Detection and Refinement
-After the initial model training, the model was used to detect objects in the video frames. Based on the detection results, I extracted a set of images that were either correctly or incorrectly detected and re-annotated them to correct the labels. After that, similar to the first step, I randomly sampled 100 images for training.
+After the initial model training, the model was used to detect objects in the video frames. Based on the detection results, I extracted a set of images that were either correctly or incorrectly detected and re-annotated them to correct the labels.
+
+After that, similar to the first step, I randomly sampled 100 images for training.
 
 ### 4.3 Subsequent Iterative Training
+The second round of training used the refined dataset generated from the first detection. Each subsequent round of training used a refined dataset generated from the previous round's detection results. 
 
+This iterative process of training, detecting, and refining continued through several rounds, with each iteration aimed at enhancing the model’s ability to accurately detect the objects of interest.
 
 ## 5. Result
 
