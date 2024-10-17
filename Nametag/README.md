@@ -66,6 +66,65 @@ The second round of training used the refined dataset generated from the first d
 This iterative process of training, detecting, and refining continued through several rounds, with each iteration aimed at enhancing the model’s ability to accurately detect the objects of interest.
 
 ## 5. Result
+The performance of the model was evaluated using a variety of metrics and visualizations, providing insight into both its accuracy and areas for improvement. Below is a breakdown of the key results:
+
+### 5.1 Directory Structure
+The results from the training process are organized as follows:
+```
+train_model
+├── F1_curve.png
+├── PR_curve.png
+├── P_curve.png
+├── R_curve.png
+├── args.yaml
+├── confusion_matrix.png
+├── confusion_matrix_normalized.png
+├── labels.jpg
+├── labels_correlogram.jpg
+├── results.csv
+├── results.png
+├── train_batch0.jpg
+├── train_batch1.jpg
+├── train_batch2.jpg
+├── val_batch0_labels.jpg
+├── val_batch0_pred.jpg
+├── val_batch1_labels.jpg
+├── val_batch1_pred.jpg
+├── val_batch2_labels.jpg
+├── val_batch2_pred.jpg
+└── weights
+    ├── best.onnx
+    ├── best.pt
+    └── last.pt
+```
+
+### 5.2 Precision, Recall, and F1 Scores
+The [F1 score curve](./v3/runs/detect/train_model/F1_curve.png) shows the harmonic mean of precision and recall across different confidence thresholds. This curve highlights how the balance between precision and recall changes and helps identify the optimal operating threshold.
+
+The [Precision-Recall curve](./v3/runs/detect/train_model/PR_curve.png) further illustrates the trade-off between precision and recall. As precision increases, recall tends to decrease, and vice versa.
+
+The [P curve](./v3/runs/detect/train_model/P_curve.png) displays precision across various confidence levels, while the [R curve](./v3/runs/detect/train_model/R_curve.png) illustrates how recall changes with confidence.
+
+### 5.3 Confusion Matrix
+The [confusion matrix](./v3/runs/detect/train_model/confusion_matrix.png) provides a visualization of true positives, true negatives, false positives, and false negatives. 
+
+The [normalized version](./v3/runs/detect/train_model/confusion_matrix_normalized.png) gives a clearer picture of classification performance, particularly when dealing with imbalanced data.
+
+It shows the proportion of correct predictions relative to the total number of instances for each class.
+
+### 5.4 Label Analysis
+The [labels.jpg](./v3/runs/detect/train_model/labels.jpg) and [labels_correlogram.jpg](./v3/runs/detect/train_model/labels_correlogram.jpg) files provide insights into the distribution and correlation of the labels within the dataset. These visualizations help to understand if there are any patterns or correlations in the training data that could affect the model's performance.
+
+### 5.5 Training Process Visualization
+During training, batch-level performance is visualized in the [train_batch0.jpg](./v3/runs/detect/train_model/train_batch0.jpg), [train_batch1.jpg](./v3/runs/detect/train_model/train_batch1.jpg), and [train_batch2.jpg](./v3/runs/detect/train_model/train_batch2.jpg) files. These show a snapshot of the model's predictions on the training data. Similar visualizations for the validation data are provided in the ***val_batchX_labels.jpg*** and ***val_batchX_pred.jpg*** files, showing both the ground truth and predicted results for the validation batches.
+
+### 5.6 Model Weights
+The final model weights are saved in the [weights](./v3/runs/detect/train_model/weights/) directory, with different versions representing various stages of training. The file [best.pt](./v3/runs/detect/train_model/weights/best.pt) contains the best-performing model in PyTorch format, [last.pt](./v3/runs/detect/train_model/weights/last.pt) represents the final model from the last epoch, and [best.onnx](./v3/runs/detect/train_model/weights/best.onnx) provides an ONNX version of the best model for deployment or integration into other systems.
+
+### 5.7 Overall Performance and Metrics
+The [results.csv](./v3/runs/detect/train_model/results.csv) file provides detailed numerical metrics for each training epoch, including precision, recall, and mAP (mean Average Precision). 
+
+The [results.png](./v3/runs/detect/train_model/results.png) image provides a visual summary of the overall training process, showcasing how the model's performance evolved over time, particularly with respect to key metrics like loss, precision, and recall.
 
 
 ## 6. Conclusion
