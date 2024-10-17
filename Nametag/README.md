@@ -7,7 +7,7 @@
 [Dataset Setup](#3-dataset-setup)</br>
 [Model Training](#4-model-training)</br>
 [Result](#5-result)</br>
-[Conclusion](#6-conclusion)
+[Running the Training Process](#6-running-the-training-process)
 
 </div>
 
@@ -127,12 +127,28 @@ The [results.csv](./v3/runs/detect/train_model/results.csv) file provides detail
 The [results.png](./v3/runs/detect/train_model/results.png) image provides a visual summary of the overall training process, showcasing how the model's performance evolved over time, particularly with respect to key metrics like loss, precision, and recall.
 
 
-## 6. Conclusion
+## 6. Running the Training Process
+### 6.1 Environment Setup and Dependencies
+`conda create --name <env> --file requirements.txt`
 
+### 6.2 Code Overview
+The complete codebase for this training is available in [Code.py](./Code.py).
 
+#### 6.2.1 Key Functions
+`train()`
+> Starts the training process for the model.
+    
+`detect_video()`
+> Runs object detection on the [sample video](./sample.mp4).
+
+`detect_all_frame()`
+> Detects objects in every frame of the video.
+
+`devide_data()`
+> Splits the dataset to [train](./dataset/train/) and [validation](./dataset/valid/) subsets.
 
 ---
 <div align="right">
 
-###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 16-OCT-2024 23:14 UTC +08:00*
+###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 17-OCT-2024 11:10 UTC +08:00*
 </div>
