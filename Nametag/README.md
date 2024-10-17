@@ -4,9 +4,10 @@
 
 [Summary](#1-summary)</br>
 [Environment Setup](#2-environment-setup)</br>
-[Model Training](#3-model-training)</br>
-[Result](#4-result)</br>
-[Conclusion](#5-conclusion)
+[Dataset Setup](#3-dataset-setup)</br>
+[Model Training](#4-model-training)</br>
+[Result](#5-result)</br>
+[Conclusion](#6-conclusion)
 
 </div>
 
@@ -25,18 +26,28 @@ This task involved identifying and tracking a staff member wearing a nametag usi
 |Graphics Card|RTX 3050|
 |Additional|CUDA 12.6|
 
-### Documents about environment
+### Environmental Documents
 > 1. [environment.yml](./environment.yml)
 > 2. [requirements.txt](./requirements.txt)
 
+## 3. Dataset Setup
 
-## 3. Model Training
+## 4. Model Training
+Regarding the training approach, I am using a self-iterative training method. This approach involves multiple iterations of model training and refinement based on progressively extracted data from previous outcomes.
+
+Self-iteration refers to a process where the model continuously uses its own outputs as new training data in subsequent training rounds. After each round, the model’s predictions are used to adjust the training data, either by adding newly predicted labels or refining the data. The model then retrains with the updated data, iterating this process. Over time, the model improves by learning from its own results, essentially "bootstrapping" its knowledge. This method is a form of semi-supervised learning, starting with a small labeled dataset and gradually expanding the training set by using the model’s predictions on unlabeled data to enhance its performance.
+
+### 4.1 Initial Training
+First of all, I randomly selected 370 pictures from a total of 1370 frames, and then annotated the nametags, person, and staff. The initial training aimed to establish a baseline for object detection.
+
+### 4.2 First Detection and Refinement
+### 4.3 Subsequent Iterative Training
 
 
-## 4. Result
+## 5. Result
 
 
-## 5. Conclusion
+## 6. Conclusion
 
 
 
