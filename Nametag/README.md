@@ -31,6 +31,21 @@ This task involved identifying and tracking a staff member wearing a nametag usi
 > 2. [requirements.txt](./requirements.txt)
 
 ## 3. Dataset Setup
+The dataset is split 80/20, with 80 percent of the images used for the training dataset and 20 percent for the validation dataset. All training in this project follows this split ratio.
+
+The dataset is structured as follows for all training:
+```
+dataset
+├── train
+│   ├── images
+│   └── labels
+└── valid
+    ├── images
+    └── labels
+```
+
+
+All data is configured for training as specified in the [data.yml](./data.yaml) file.
 
 ## 4. Model Training
 Regarding the training approach, I am using a self-iterative training method. This approach involves multiple iterations of model training and refinement based on progressively extracted data from previous outcomes.
