@@ -1,3 +1,9 @@
+# Nametag
 __pycache__/
 .ipynb_checkpoints
 output/
+
+# REST Using Express JS
+node_modules
+# Keep environment variables out of version control
+.env

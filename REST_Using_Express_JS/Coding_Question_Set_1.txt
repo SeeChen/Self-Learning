@@ -1,0 +1,19 @@
+REST using Express JS
+
+You will need to set up a REST API server using Express JS in Typescript.
+
+Some basic information:
+    - Create a user table with some basic information inside
+        - Name
+        - Email
+        - Password
+        - Address
+    - Use Prisma as ORM to create table and query
+    - Use JWT Auth to make sure every route is protected
+
+Route needed:
+    - Create User
+    - Get User by Id
+    - Update User by Id
+    - Delete User by Id
+    - Login using Password
