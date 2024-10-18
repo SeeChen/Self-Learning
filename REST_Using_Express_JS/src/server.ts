@@ -3,9 +3,11 @@ import express from 'express'
 import routerUser from './routes/routeUser';
 
 const app = express();
+const cookieParser = require('cookie-parser')
 const PORT = process.env.PORT || 1234;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use('/api/users', routerUser)
 
 app.get('/', async (req, res) => {

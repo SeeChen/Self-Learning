@@ -10,7 +10,12 @@ const prisma = new PrismaClient();
 export const userCreate = async (req: Request, res: Response ) => {
 
     const { name, email, password, address } = req.body;
-    console.log(req);
+
+    const userExist = await prisma.user.findUnique({ where: { email } });
+    if (userExist) {
+
+        return res.status(409).json({ message: "User Exist." });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -43,10 +48,16 @@ export const userGetById = async (req: Request, res: Response) => {
 
 export const userUpdateById = async (req: Request, res: Response) => {
 
-    const { id } = req.params;
-    const { name, email, password, address } = req.body;
+    const id = req.cookies["uid"];
+    const { name, email, passwordOld, passwordNew, address } = req.body;
 
-    const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
+    const userOriginal = await prisma.user.findUnique({ where: { id: Number(id) } });
+    if (!(await bcrypt.compare(passwordOld, userOriginal.password))) {
+
+        return res.status(401).send("Invalid Password");
+    }
+
+    const hashedPassword = passwordNew ? await bcrypt.hash(passwordNew, 10) : passwordOld;
 
     const user = await prisma.user.update({
 
@@ -65,7 +76,23 @@ export const userUpdateById = async (req: Request, res: Response) => {
 
 export const userDeleteById = async (req: Request, res: Response) => {
 
-    const { id } = req.params;
+    const id = req.cookies["uid"];
+    const { name, email, password } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { id: Number(id) } });
+    if (!(await bcrypt.compare(password, user.password))) {
+
+        return res.status(401).send("Invalid Password");
+    }
+
+    if (user.name != name) {
+
+        return res.status(401).send("Incorrect Name.");
+    }
+    if (user.email != email) {
+
+        return res.status(401).send("Incorrect Email.")
+    }
 
     await prisma.user.delete({ where: { id: Number(id) } });
     
@@ -84,5 +111,28 @@ export const userLogin = async (req: Request, res: Response) => {
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || 'EiHeiHei', { expiresIn: '1h' });
 
-    res.json({ token });
+    res.cookie("auth", token, {
+
+        httpOnly: true,
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 1000,
+    });
+
+    res.cookie("uid", user.id, {
+
+        httpOnly: true,
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 1000,
+    });
+
+    res.json({
+
+        message: "Login Successful",
+        user: {
+
+            id: user.id,
+            name: user.name,
+            email: user.email
+        }
+    });
 };

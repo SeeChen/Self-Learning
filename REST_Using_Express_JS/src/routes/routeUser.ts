@@ -7,9 +7,9 @@ import { userCreate, userGetById, userUpdateById, userDeleteById, userLogin } fr
 const routerUser = express.Router();
 
 routerUser.post('/create', userCreate);
-routerUser.get('/:id', authMiddleware, userGetById);
-routerUser.put('/:id', authMiddleware, userUpdateById);
-routerUser.delete('/:id', authMiddleware, userDeleteById);
 routerUser.post('/login', userLogin);
+routerUser.get('/info/:id', authMiddleware, userGetById);
+routerUser.put('/update', authMiddleware, userUpdateById);
+routerUser.delete('/delete', authMiddleware, userDeleteById);
 
 export default routerUser;
