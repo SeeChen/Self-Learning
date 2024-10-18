@@ -80,7 +80,24 @@
 					"name": "Get Info",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:1234/api/users/info/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1234",
+							"path": [
+								"api",
+								"users",
+								"info",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
