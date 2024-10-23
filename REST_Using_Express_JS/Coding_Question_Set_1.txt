@@ -17,3 +17,12 @@ Route needed:
     - Update User by Id
     - Delete User by Id
     - Login using Password
+
+
+New requirements:
+    - Up 1 auth service, and do all the authentication and authorization flow through the service.
+    - Add 1 more table called company, 1 company can have many users, but 1 user must have 1 company
+    - API to CRUD company
+    - API to assign/remove user to company
+
+    22 OCT 2024

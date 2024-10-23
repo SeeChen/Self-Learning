@@ -19,4 +19,12 @@ model User {
   email    String @unique
   password String
   address  String
+  company  Company? @relation(fields: [companyId], references: [id])
+  companyId Int?
+}
+
+model Company {
+  id    Int    @id @default(autoincrement())
+  name  String
+  users User[]
 }

@@ -84,10 +84,12 @@ Currently, the architecture consists of three layers: controllers, routes, and m
 To improve the application's architecture and better manage functionality, I will introduce additional layers, including DAO (Data Access Object) and Service layers.
 
 ## 5. API Test
+You can run the server with the command `npm tsx server.ts`.
+
 To test my API and understand its functionality, you can use Postman. Download the collection file [REST.postman_collection.json](./REST.postman_collection.json) or [click here](https://yiyingpiaopiao.postman.co/workspace/user-api~6adfe4bb-2bc2-4b1d-8ba6-66928967946e/collection/25397697-e8cf12f6-9fa3-44d8-a088-68589638c2f2?action=share&creator=25397697) to access the Postman website.
 
 ---
 <div align="right">
 
-###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 18-OCT-2024 12:37 UTC +08:00*
+###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 12-OCT-2024 22:29 UTC +08:00*
 </div>
