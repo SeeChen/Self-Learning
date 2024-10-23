@@ -14,17 +14,28 @@ generator client {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
-  address  String
-  company  Company? @relation(fields: [companyId], references: [id])
-  companyId Int?
+  id          Int    @id @default(autoincrement())
+  name        String
+  email       String @unique
+  password    String
+  address     String
+  userCompany UserCompany?
 }
 
 model Company {
-  id    Int    @id @default(autoincrement())
-  name  String
-  users User[]
+  id      Int    @id @default(autoincrement())
+  name    String
+  address String
+  users   UserCompany[]
+}
+
+model UserCompany {
+  userId    Int   @unique
+  companyId Int
+  role      Int // 0: Admin, 1: User
+
+  user      User    @relation(fields: [userId], references: [id])
+  company   Company @relation(fields: [companyId], references: [id])
+
+  @@id([userId, companyId])
 }
