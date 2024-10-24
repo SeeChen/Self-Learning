@@ -2,13 +2,12 @@
 import express from 'express';
 
 import { authMiddleware } from '../middleware/authMiddleware';
-import { companyCreate, companyGetById, companyGetByName, companyUpdate, companyDelete } from '../controllers/controllerCompany';
+import { companyCreate, companyGetByKey, companyUpdate, companyDelete } from '../controllers/controllerCompany';
 
 const routerCompany = express.Router();
 
 routerCompany.post('/create', companyCreate);
-routerCompany.get('/info/:id', companyGetById);
-routerCompany.get('/info/:name', companyGetByName);
+routerCompany.get('/info/:id', companyGetByKey);
 routerCompany.put('/update', companyUpdate);
 routerCompany.delete('/delete', companyDelete);
 
