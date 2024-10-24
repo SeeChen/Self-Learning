@@ -1,9 +1,7 @@
 
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-
 import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
+import { hashPassword, verifyPassword, verifyToken, generateToken } from '../Services/authService';
 
 const prisma = new PrismaClient();
 
@@ -17,7 +15,7 @@ export const userCreate = async (req: Request, res: Response ) => {
         return res.status(409).json({ message: "User Exist." });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hashPassword(password);
 
     const user = await prisma.user.create({
 
@@ -26,7 +24,8 @@ export const userCreate = async (req: Request, res: Response ) => {
             name,
             email,
             password: hashedPassword,
-            address
+            address,
+            userCompany: null
         }
     });
 
@@ -40,7 +39,20 @@ export const userGetById = async (req: Request, res: Response) => {
 
     if (!user) {
 
-        return res.status(404).send("User Not Found");
+        return res.status(404).send("User Not Found!");
+    }
+
+    res.json(user);
+};
+
+export const userGetByEmail = async (req: Request, res: Response) => {
+
+    const { email } = req.params;
+    const user = await prisma.user.findUnique({ where: { email } })
+
+    if (!user) {
+
+        return res.status(404).send("User Not Found!")
     }
 
     res.json(user);
@@ -52,12 +64,12 @@ export const userUpdateById = async (req: Request, res: Response) => {
     const { name, email, passwordOld, passwordNew, address } = req.body;
 
     const userOriginal = await prisma.user.findUnique({ where: { id: Number(id) } });
-    if (!(await bcrypt.compare(passwordOld, userOriginal.password))) {
+    if (!(await verifyPassword(passwordOld, userOriginal.password))) {
 
         return res.status(401).send("Invalid Password");
     }
 
-    const hashedPassword = passwordNew ? await bcrypt.hash(passwordNew, 10) : passwordOld;
+    const hashedPassword = passwordNew ? await hashPassword(passwordNew) : passwordOld;
 
     const user = await prisma.user.update({
 
@@ -67,7 +79,8 @@ export const userUpdateById = async (req: Request, res: Response) => {
             name,
             email,
             password: hashedPassword,
-            address
+            address,
+            userCompany: userOriginal.userCompany
         }
     });
 
@@ -80,7 +93,7 @@ export const userDeleteById = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
 
     const user = await prisma.user.findUnique({ where: { id: Number(id) } });
-    if (!(await bcrypt.compare(password, user.password))) {
+    if (!(await verifyPassword(password, user.password))) {
 
         return res.status(401).send("Invalid Password");
     }
@@ -104,12 +117,12 @@ export const userLogin = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({ where: { email } });
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user || !(await verifyPassword(password, user.password))) {
         
         return res.status(401).send("Invalid credentials");
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || 'EiHeiHei', { expiresIn: '1h' });
+    const token = generateToken(user.id);
 
     res.cookie("auth", token, {
 
@@ -132,7 +145,8 @@ export const userLogin = async (req: Request, res: Response) => {
 
             id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            userCompany: user.userCompany
         }
     });
 };
