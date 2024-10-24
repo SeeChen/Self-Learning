@@ -15,7 +15,7 @@ export const daoUser = {
 
     findByKey: async (id?: number, email?: string, params?: string[]) => {
 
-        const allValue = ['id', 'name', 'email', 'address', 'password', 'userCompany']
+        const allValue = ['id', 'name', 'email', 'address', 'password', 'userCompany'];
         const selectObj: Record<string, boolean> = {};
 
         allValue.forEach(value => {

@@ -6,7 +6,7 @@ import { companyCreate, companyGetByKey, companyUpdate, companyDelete } from '..
 const routerCompany = express.Router();
 
 routerCompany.post('/create', companyCreate);
-routerCompany.get('/info/:id', companyGetByKey);
+routerCompany.get('/info', companyGetByKey);
 routerCompany.put('/update', companyUpdate);
 routerCompany.delete('/delete', companyDelete);
 
