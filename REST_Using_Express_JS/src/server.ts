@@ -2,7 +2,7 @@
 import express from 'express'
 import routerUser from './routes/routeUser';
 import routerCompany from './routes/routeCompany';
-import routeCompanyManage from './routes/routeManageCompany';
+import routeCompanyManage from './routes/routeCompanyManage';
 
 const app = express();
 const cookieParser = require('cookie-parser')
