@@ -1,7 +1,6 @@
 
 import express from 'express';
 
-import { authMiddleware } from '../middleware/authMiddleware';
 import { companyCreate, companyGetByKey, companyUpdate, companyDelete } from '../controllers/controllerCompany';
 
 const routerCompany = express.Router();

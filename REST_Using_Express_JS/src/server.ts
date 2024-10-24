@@ -2,6 +2,7 @@
 import express from 'express'
 import routerUser from './routes/routeUser';
 import routerCompany from './routes/routeCompany';
+import routeCompanyManage from './routes/routeManageCompany';
 
 const app = express();
 const cookieParser = require('cookie-parser')
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api/users', routerUser)
 app.use('/api/company', routerCompany);
+app.use('/api/company/manage', routeCompanyManage);
 
 app.get('/', async (req, res) => {
 

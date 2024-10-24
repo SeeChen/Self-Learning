@@ -96,7 +96,7 @@ export const companyGetByKey = async (req: Request, res: Response) => {
 
     if (!uid || !company.users.length) {
 
-        return res.json({
+        return res.json({ 
 
             id: company.id,
             name: company.name,

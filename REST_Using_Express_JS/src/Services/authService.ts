@@ -17,7 +17,18 @@ export const generateToken = (userId: number): string => {
     return jwt.sign({ userId }, process.env.JWT_SECRET || "EiHeiHei", { expiresIn: "1h" });
 };
 
-export const verifyToken = (token: string): any => {
+export const verifyToken = (token: string): Promise<string> => {
 
-    return jwt.verify(token, process.env.JWT_SECRET || "EiHeiHei");
+    return new Promise((resolve, reject) => {
+
+        jwt.verify(token, process.env.JWT_SECRET || "EiHeiHei", (err: any, decoded: any) => {
+
+            if (err) {
+
+                return reject(err);
+            }
+
+            resolve(decoded);
+        });
+    });
 };
