@@ -5,8 +5,7 @@
 [Summary](#1-summary)</br>
 [Project Setup](#2-project-setup)</br>
 [Project Architecture](#3-project-architecture)</br>
-[Extension and Improvement](#4-extension-and-improvement)</br>
-[API Test](#5-api-test)</br>
+[API Test](#4-api-test)</br>
 
 </div>
 
@@ -41,11 +40,30 @@ I am use SQLite for development. The schema is defined in [schema.prisma](./pris
 The database structure is as follows:
 ```prisma
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
-  address  String
+  id          Int    @id @default(autoincrement())
+  name        String
+  email       String @unique
+  password    String
+  address     String
+  userCompany UserCompany?
+}
+
+model Company {
+  id      Int     @id @default(autoincrement())
+  name    String  @unique 
+  address String
+  users   UserCompany[]
+}
+
+model UserCompany {
+  userId    Int   @unique
+  companyId Int
+  role      Int // 0: Admin, 1: User
+
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@id([userId, companyId])
 }
 ```
 
@@ -53,11 +71,21 @@ model User {
 This task utilizes a simple layered architecture, as shown below:
 ```
 src
-├── controllers
-├── middleware
-└── routes
+├───auth
+├───controllers
+├───dao
+├───middleware
+├───routes
+└───Services
 ```
-Currently, the architecture consists of three layers: controllers, routes, and middleware.
+Currently, the architecture consists of six layers: auth, controllers, dao, middleware, routes, and Services.
+
+### **Auth**
+`ROLE`:
+> The auth layer abstracts all authentication-related operations, encapsulating them into reusable functions. By consolidating these operations, it simplifies the handling of authentication and authorization across the application.
+
+`FUNCTION`:
+> The auth layer provides methods like verifyToken, verifyPassword, and genToken, which are commonly used in various parts of the app. This layer ensures consistency and security in authentication workflows by centralizing similar code into one file.
 
 ### **Controller**
 `ROLE`:
@@ -80,10 +108,21 @@ Currently, the architecture consists of three layers: controllers, routes, and m
 `Function`:
 > Middleware can modify the request or response, end the request-response cycle, or call the next middleware in the stack. They are commonly used for tasks such as authentication, logging, and error handling.
 
-## 4. Extension and Improvement
-To improve the application's architecture and better manage functionality, I will introduce additional layers, including DAO (Data Access Object) and Service layers.
+### **DAO (Data Access Object)**
+`ROLE`:
+> The DAO layer provides an abstraction over direct database operations, making it easier to manage data access and manipulation consistently across the application.
 
-## 5. API Test
+`Function`:
+> DAOs handle all database queries and operations (such as creating, reading, updating, and deleting records) by providing a standardized interface. This keeps data logic separated from business logic and supports more maintainable and scalable database interactions.
+
+### **Services**
+`ROLE`:
+> The services layer encapsulates the core business logic and workflows of the application. It serves as an intermediary between controllers and DAOs or external data sources, handling the essential rules and processes.
+
+`Function`:
+> Services define how the application processes data and implement reusable functions that encapsulate specific workflows and rules. This helps maintain consistency in business logic across different parts of the app and supports a clear separation of concerns.
+
+## 4. API Test
 You can run the server with the command `npx tsx server.ts`.
 
 To test my API and understand its functionality, you can use Postman. Download the collection file [REST.postman_collection.json](./REST.postman_collection.json) or [click here](https://yiyingpiaopiao.postman.co/workspace/user-api~6adfe4bb-2bc2-4b1d-8ba6-66928967946e/collection/25397697-e8cf12f6-9fa3-44d8-a088-68589638c2f2?action=share&creator=25397697) to access the Postman website.
@@ -91,5 +130,5 @@ To test my API and understand its functionality, you can use Postman. Download t
 ---
 <div align="right">
 
-###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 12-OCT-2024 22:29 UTC +08:00*
+###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 25-OCT-2024 16:01 UTC +08:00*
 </div>
