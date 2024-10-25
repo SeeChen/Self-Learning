@@ -559,3 +559,135 @@ http://127.0.0.1:1234/api/company/delete?id=1
 ```text
 Delete Successful.
 ```
+## 10. Assign User
+> Assign user to a company.
+
+### 10.1 URL
+`http://${host}:1234/api/company/manage/assign`
+
+### 10.2 Method
+- [x] POST
+- [ ] GET
+- [ ] DELETE
+- [ ] PUT
+
+### 10.3 Request Parameters
+Using: `body`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|userId|Number|:heavy_check_mark:|The user ID you want to assign|2|
+|role|Number|:heavy_check_mark:|Permission, 0 is admin, 1 is user|0|
+
+### 10.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|userId||Number|Assigned User ID|2|
+|companyId||Number|The company id to which the user has been assigned|1|
+|role||Number|Permission|0|
+
+### 10.5 Request and Response
+#### 10.5.1
+**Request**:
+
+*`body`*
+```json
+{
+    "userId": 2,
+    "role": 1
+}
+```
+**Reponse**:
+```json
+{
+    "userId": 2,
+    "companyId": 1,
+    "role": 1
+}
+```
+## 11. Remove User
+> Remove user from a company.
+
+### 11.1 URL
+`http://${host}:1234/api/company/manage/remove`
+
+### 11.2 Method
+- [ ] POST
+- [ ] GET
+- [x] DELETE
+- [ ] PUT
+
+### 11.3 Request Parameters
+Using: `body`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|userId|Number|:heavy_check_mark:|The user ID you want to remove|2|
+
+### 11.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+||||||
+
+### 11.5 Request and Response
+#### 11.5.1
+**Request**:
+
+*`body`*
+```json
+{
+    "userId": 2
+}
+```
+**Reponse**:
+```text
+Remove Successful.
+```
+## 12. User Role
+> Modify the user role.
+
+### 12.1 URL
+`http://${host}:1234/api/company/manage/modify-role`
+
+### 12.2 Method
+- [ ] POST
+- [ ] GET
+- [ ] DELETE
+- [x] PUT
+
+### 12.3 Request Parameters
+Using: `body`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|userId|Number|:heavy_check_mark:|The user ID you want to modify|2|
+|roleNew|Number|:heavy_check_mark:|New role|0|
+
+### 12.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|userId||Number|User ID|2|
+|companyId||Number|The company id|1|
+|role||Number|Permission|0|
+
+### 12.5 Request and Response
+#### 12.5.1
+**Request**:
+
+*`body`*
+```json
+{
+    "userId": 2,
+    "roleNew": 0
+}
+```
+**Reponse**:
+```json
+{
+    "userId": 2,
+    "companyId": 1,
+    "role": 0
+}
+```
+---
+<div align="right">
+
+###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 25-OCT-2024 19:48 UTC +08:00*
+</div>
