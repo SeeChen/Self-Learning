@@ -17,4 +17,4 @@
 Using: `Body`
 |Params|Type|Required|Description|Example|
 |:--:|:--:|:--:|:--:|:--:|
-|Params|Type|- [x]|Description|Example|
+|Params|Type|:heavy_check_mark:|Description|Example|
