@@ -5,5 +5,5 @@
 `http://${host}:1234/api/users/create`
 
 ### 1.2 Method
-- [x] Post
-- [] 
+> - [x] POST
+> - [ ] GET
