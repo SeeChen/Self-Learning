@@ -1,13 +1,12 @@
 
 import express from 'express';
 
-
-import { companyManageAssign, companyManageRemove, companyManageModifyRole } from '../controllers/controllerCompanyManage';
+import { companyManageAuthVerify } from '../middleware/authManage';
 
 const routeCompanyManage = express.Router();
 
-routeCompanyManage.post("/assign", companyManageAssign);
-routeCompanyManage.delete("/remove", companyManageRemove);
-routeCompanyManage.put("/modify-role", companyManageModifyRole);
+routeCompanyManage.post("/assign", companyManageAuthVerify.assign);
+routeCompanyManage.delete("/remove", companyManageAuthVerify.remove);
+routeCompanyManage.put("/modify-role", companyManageAuthVerify.modifyRole);
 
 export default routeCompanyManage;

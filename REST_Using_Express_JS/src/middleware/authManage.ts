@@ -1,23 +1,85 @@
 
-import { verifyToken } from "../auth/authService";
-import { Request, Response, NextFunction } from "express";
+import { verifyPassword, verifyToken } from "../auth/authService";
+import { Request, Response} from "express";
+import { companyManageAssign, companyManageModifyRole, companyManageRemove } from "../controllers/controllerCompanyManage";
 
-export const companyAuthVerify = async (req: Request, res: Response, next: NextFunction) => {
+export const companyManageAuthVerify = {
 
-    const tokenCompany = req.cookies["auth-company"];
-    if (!tokenCompany) {
+    assign: async (req: Request, res: Response): Promise<any> => {
 
-        return res.sendStatus(403);
-    }
+        const token = req.cookies["auth"];
+        if (!token) {
 
-    try {
+            res.status(403);
+        }
 
-        const user = await verifyToken(tokenCompany);
-        console.log(user.keyNumber);
-        req.user = user;
-        next();
-    } catch (err) {
+        try {
 
-        return res.sendStatus(403);
-    }
-};
+            const auth = await verifyToken(token);
+            const { userId } = req.body;
+            
+            if (Number(auth.com_auth) !== 0 || Number(userId) == Number(auth.uid)) {
+
+                return res.status(403).send("Permission Denied.");
+            }
+
+            req.uAuth = auth;
+            companyManageAssign(req, res);
+        } catch (err) {
+
+            return res.status(403);
+        }
+    },
+
+    remove: async (req: Request, res: Response): Promise<any> => {
+
+        const token = req.cookies["auth"];
+        if (!token) {
+
+            res.status(403);
+        }
+
+        try {
+
+            const auth = await verifyToken(token);
+            const { userId } = req.body;
+
+            if (Number(auth.com_auth) !== 0 || Number(userId) == Number(auth.uid)) {
+
+                return res.status(403).send("Permission Denied.");
+            }
+
+            req.uAuth = auth;
+            companyManageRemove(req, res);
+        } catch (err) {
+
+            return res.status(403);
+        }
+    },
+
+    modifyRole: async (req: Request, res: Response): Promise<any> => {
+
+        const token = req.cookies["auth"];
+        if (!token) {
+
+            res.status(403);
+        }
+
+        try {
+
+            const auth = await verifyToken(token);
+            const { userId } = req.body;
+
+            if (Number(auth.com_auth) !== 0 || Number(userId) == Number(auth.uid)) {
+
+                return res.status(403).send("Permission Denied.");
+            }
+            
+            req.uAuth = auth;
+            companyManageModifyRole(req, res);
+        } catch (err) {
+
+            return res.status(403);
+        }
+    },
+}

@@ -4,8 +4,8 @@ import { serviceCompanyManage } from "../Services/serviceCompanyManage";
 
 export const companyManageAssign = async (req: Request, res: Response) => {
 
-    const adminId = req.cookies["uid"];
-    const { companyId } = req.query;
+    const adminId = req.uAuth.uid;
+    const companyId = req.uAuth.com;
     const { userId, role } = req.body;
 
     try {
@@ -27,8 +27,8 @@ export const companyManageAssign = async (req: Request, res: Response) => {
 
 export const companyManageRemove = async (req: Request, res: Response) => {
 
-    const adminId = req.cookies["uid"];
-    const { companyId } = req.query;
+    const adminId = req.uAuth.uid;
+    const companyId= req.uAuth.com;
     const { userId } = req.body;
 
     try {
@@ -48,8 +48,8 @@ export const companyManageRemove = async (req: Request, res: Response) => {
 
 export const companyManageModifyRole = async (req: Request, res: Response) => {
 
-    const adminId = req.cookies["uid"];
-    const { companyId } = req.query;
+    const adminId = req.uAuth.uid;
+    const companyId= req.uAuth.com;
     const { userId, roleNew } = req.body;
 
     try {
