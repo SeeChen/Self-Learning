@@ -34,8 +34,8 @@ model UserCompany {
   companyId Int
   role      Int // 0: Admin, 1: User
 
-  user      User    @relation(fields: [userId], references: [id])
-  company   Company @relation(fields: [companyId], references: [id])
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   @@id([userId, companyId])
 }

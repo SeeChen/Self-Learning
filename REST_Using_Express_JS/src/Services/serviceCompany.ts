@@ -1,13 +1,23 @@
 
 import { daoCompany } from "../dao/daoCompany"
+import { daoCompanyManage } from "../dao/daoCompanyManage";
+import { daoUser } from "../dao/daoUser";
+import { verifyPassword } from "./authService";
  
  export const serviceCompany = {
 
     async create (
 
+        creatorId: number,
         name: string,
         address: string
     ) {
+
+        const userWithCompany = await daoCompanyManage.findByUserId(creatorId);
+        if (userWithCompany) {
+
+            throw new Error("Already have company.");
+        }
 
         const companyExists = await daoCompany.findByKey(undefined, name);
         if (companyExists) {
@@ -18,15 +28,23 @@ import { daoCompany } from "../dao/daoCompany"
         return await daoCompany.create({
 
             name,
-            address
+            address,
+            users: {
+
+                create: {
+
+                    userId: Number(creatorId),
+                    role: 0
+                }
+            }
         });
     },
 
     async info (
 
+        UID?: number,
         id?: number,
-        name?: string,
-        params?: string[]
+        name?: string
     ) {
 
         if (!id && !name) {
@@ -37,7 +55,7 @@ import { daoCompany } from "../dao/daoCompany"
         const company = await daoCompany.findByKey(
             id ? Number(id) : undefined,
             name ? String(name) : undefined,
-            params
+            [UID && id ? (await daoCompanyManage.findByDoubleKey(Number(id), Number(UID)) ? "" : "users") : "users"]
         );
 
         if (!company) {
@@ -50,6 +68,7 @@ import { daoCompany } from "../dao/daoCompany"
 
     async update (
 
+        adminId: number,
         id: number,
         name?: string,
         address?: string
@@ -59,6 +78,12 @@ import { daoCompany } from "../dao/daoCompany"
         if (!company) {
 
             throw new Error("Company Does not Exists.");
+        }
+
+        const userWithCompany = await daoCompanyManage.findByDoubleKey(Number(id), Number(adminId));
+        if (!userWithCompany || userWithCompany.role !== 0) {
+
+            throw new Error("Permission Denied.");
         }
 
         name = name || company.name;
@@ -75,15 +100,26 @@ import { daoCompany } from "../dao/daoCompany"
 
     async delete (
 
-        id: number
+        adminId: number,
+        adminEmail: string,
+        adminPassword: string,
+        companyId: number,
+        companyName: string
     ) {
 
-        const company = await daoCompany.findByKey(id);
-        if (!company) {
+        const user = await daoUser.findByKey(Number(adminId));
+        const company = await daoCompany.findByKey(companyId);
+        if (!user || !company) {
 
-            throw new Error("Company Does Not Exists.");
+            throw new Error("Target not found.");
         }
 
-        await daoCompany.delete(id);
+        const userWithCompany = await daoCompanyManage.findByDoubleKey(companyId, adminId);
+        if (!userWithCompany || userWithCompany.role !== 0 || (companyName !== company.name) || (adminEmail !== user.email) || !await verifyPassword(adminPassword, user.password)) {
+
+            throw new Error("Permission Denied.");
+        }
+
+        await daoCompany.delete(companyId);
     },
  }
