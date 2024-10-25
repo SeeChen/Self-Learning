@@ -1,6 +1,6 @@
 
 import { daoUser } from "../dao/daoUser";
-import { hashPassword, verifyPassword } from "./authService";
+import { hashPassword, verifyPassword } from "../auth/authService";
 
 export const serviceUser = {
 
@@ -120,7 +120,7 @@ export const serviceUser = {
 
         if (pwdOld && !(await verifyPassword(pwdOld, user.password))) {
 
-            throw new Error("Incorrect Password!");
+            throw new Error("Incorrect Password.");
         }
 
         return await daoUser.update(

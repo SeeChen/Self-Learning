@@ -2,7 +2,7 @@
 import { daoCompany } from "../dao/daoCompany"
 import { daoCompanyManage } from "../dao/daoCompanyManage";
 import { daoUser } from "../dao/daoUser";
-import { verifyPassword } from "./authService";
+import { verifyPassword } from "../auth/authService";
  
  export const serviceCompany = {
 

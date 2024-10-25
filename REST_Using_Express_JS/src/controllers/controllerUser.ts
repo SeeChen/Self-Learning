@@ -1,10 +1,7 @@
 
-import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
-import { generateToken } from '../Services/authService';
+import { generateToken } from '../auth/authService';
 import { serviceUser } from '../Services/serviceUser';
-
-const prisma = new PrismaClient();
 
 export const userCreate = async (req: Request, res: Response ) => {
 
@@ -33,20 +30,20 @@ export const userLogin = async (req: Request, res: Response) => {
 
         const user = await serviceUser.login(email, password);
 
-        res.cookie("auth-user", generateToken(user.id), {
+        res.cookie("auth", generateToken({
+
+            "uid": user.id,
+            "name": user.name,
+            "pwd": user.password,
+            "email": user.email,
+            "com": user.userCompany ? user.userCompany.companyId : -1,
+            "com_auth": user.userCompany ? user.userCompany.role : -1,
+        }), {
 
             httpOnly: true,
             sameSite: 'strict',
             maxAge: 60 * 60 * 1000,
-        });
-
-        res.cookie("uid", user.id, {
-
-            httpOnly: true,
-            sameSite: 'strict',
-            maxAge: 60 * 60 * 1000,
-        });
-
+        })
         
         res.json({
 
@@ -66,7 +63,7 @@ export const userLogin = async (req: Request, res: Response) => {
 
 export const userGetByKey = async (req: Request, res: Response) => {
 
-    const uid = req.cookies["uid"];
+    const uid = Number(req.uAuth.uid) || -1;
     const { id, email } = req.query;
     try {
 
@@ -74,7 +71,7 @@ export const userGetByKey = async (req: Request, res: Response) => {
 
             id ? Number(id) : undefined,
             email ? String(email) : undefined,
-            uid === id ? [] : ["password", "userCompany"]
+            Number(uid) === Number(id) ? [] : ["password", "userCompany"]
         );
 
         res.json(user);
@@ -86,7 +83,7 @@ export const userGetByKey = async (req: Request, res: Response) => {
 
 export const userUpdateById = async (req: Request, res: Response) => {
 
-    const id = req.cookies["uid"];
+    const id = req.uAuth.uid;
     const { name, email, passwordOld, passwordNew, address } = req.body;
 
     try {
@@ -101,16 +98,31 @@ export const userUpdateById = async (req: Request, res: Response) => {
             address
         );
 
+        res.cookie("auth", generateToken({
+
+            "uid": newUser.id,
+            "name": newUser.name,
+            "pwd": newUser.password,
+            "email": newUser.email,
+            "com": newUser.userCompany ? newUser.userCompany.companyId : -1,
+            "com_auth": newUser.userCompany ? newUser.userCompany.role : -1,
+        }), {
+
+            httpOnly: true,
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 1000,
+        });
+
         res.json(newUser);
     } catch (err) {
 
-        res.status(401).send(err.message);
+        res.sendStatus(401);
     }
 };
 
 export const userDeleteById = async (req: Request, res: Response) => {
 
-    const id = req.cookies["uid"];
+    const id = req.uAuth.uid;
     const { name, email, password } = req.body;
 
     try {
