@@ -277,3 +277,285 @@ Using: `Body`
 ```text
 Delete Successful.
 ```
+
+## 6. Create Company
+> Create a company.
+
+### 6.1 URL
+`http://${host}:1234/api/company/create`
+
+### 6.2 Method
+- [x] POST
+- [ ] GET
+- [ ] DELETE
+- [ ] PUT
+
+### 6.3 Request Parameters
+Using: `Body`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|name|String|:heavy_check_mark:|Company Name|Company Name|
+|address|String|:heavy_check_mark:|Company Address|Company Address|
+
+*Users must be logged in to create a company.*
+
+### 6.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|id||Number|Company Id in database|1|
+|name||String|Company Name|Company Name|
+|address||String|Company Address|Company Address|
+
+### 6.5 Request and Response
+#### 6.5.1
+**Request**:
+```json
+{
+    "name": "Company Name",
+    "address": "Company Address"
+}
+```
+**Reponse**:
+```json
+{
+    "id": 1,
+    "name": "Company Name",
+    "address": "Company Address"
+}
+```
+
+## 7. Get Company Information
+> Get Company Information.
+
+### 7.1 URL
+`http://${host}:1234/api/company/info`
+
+### 7.2 Method
+- [ ] POST
+- [x] GET
+- [ ] DELETE
+- [ ] PUT
+
+### 7.3 Request Parameters
+Using: `Params`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|id|Number||ID of Compnay|1|
+|name|String||Company Name|Company Name|
+
+*Select at least one.*
+
+### 7.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|id||Number|ID of Company|1|
+|name||String|Company Name|Company Name|
+|address||String|Company Address|Address|
+|users||List|Include users in the company|null|
+||userId|Number|User Id|1|
+||companyId|String|Company ID|1|
+||role|Number|User Permissions|0|
+
+### 7.5 Request and Response
+#### 7.5.1 *Get information by company ID*
+**Request**:
+```text
+http://127.0.0.1:1234/api/company/info?id=1
+```
+**Reponse**:
+```json
+{
+    "id": 1,
+    "name": "Company Name",
+    "address": "Company Address"
+}
+```
+
+#### 7.5.2 *Get information by company name*
+**Request**:
+```text
+http://127.0.0.1:1234/api/company/info?name=CompanyName
+```
+**Reponse**:
+```json
+{
+    "id": 1,
+    "name": "Company Name",
+    "address": "Company Address"
+}
+```
+
+#### 7.5.3 *Get information when the user searches for a company*
+**Request**:
+```text
+http://127.0.0.1:1234/api/company/info?name=CompanyName&id=1
+```
+**Reponse**:
+```json
+{
+    "id": 1,
+    "name": "Company Name",
+    "address": "Company Address",
+    "users": [
+        {
+            "userId": 1,
+            "companyId": 1,
+            "role": 0
+        }
+    ]
+}
+```
+
+## 8. Update Company Information
+> Update Company Information.
+
+### 8.1 URL
+`http://${host}:1234/api/company/update`
+
+### 8.2 Method
+- [ ] POST
+- [ ] GET
+- [ ] DELETE
+- [x] PUT
+
+### 8.3 Request Parameters
+Using: `Params`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|id|Number|:heavy_check_mark:|Company ID|1|
+
+Using: `body`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|name|String||New Company Name|New Company Name|
+|address|String||New Company address|Address-new|
+
+*Users must be logged in to update a company.*
+
+### 8.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|id||Number|Company Id in database|1|
+|name||String|Company Name|New Company Name|
+|address||String|Company Address|New Company Address|
+
+### 8.5 Request and Response
+#### 8.5.1 *Two parameters*
+**Request**:
+
+*`Params`*
+```text
+http://127.0.0.1:1234/api/company/update?id=1
+```
+*`body`*
+```json
+{
+    "name": "Company Example",
+    "address": "New-Address"
+}
+```
+**Reponse**:
+```json
+{
+    "id": 1,
+    "name": "Company Example",
+    "address": "New-Address"
+}
+```
+
+#### 8.5.2 *Company Name*
+**Request**:
+
+*`Params`*
+```text
+http://127.0.0.1:1234/api/company/update?id=1
+```
+*`body`*
+```json
+{
+    "name": "Company Example",
+    "address": ""
+}
+```
+**Reponse**:
+```json
+{
+    "id": 1,
+    "name": "Company Example",
+    "address": "Old-Address"
+}
+```
+
+#### 8.5.3 *Company Address*
+**Request**:
+
+*`Params`*
+```text
+http://127.0.0.1:1234/api/company/update?id=1
+```
+*`body`*
+```json
+{
+    "name": "Company Name",
+    "address": "New-Address"
+}
+```
+**Reponse**:
+```json
+{
+    "id": 1,
+    "name": "Company Name",
+    "address": "New-Address"
+}
+```
+
+## 9. Delete Company
+> Delete Company.
+
+### 9.1 URL
+`http://${host}:1234/api/company/delete`
+
+### 9.2 Method
+- [ ] POST
+- [ ] GET
+- [x] DELETE
+- [ ] PUT
+
+### 9.3 Request Parameters
+Using: `Params`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|id|Number|:heavy_check_mark:|Company ID|1|
+
+Using: `body`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|companyName|String|:heavy_check_mark:|Manual input to prevent misoperation|Company Name|
+|adminEmail|String|:heavy_check_mark:|Manual input to prevent misoperation|example@email.com|
+|adminPassword|String|:heavy_check_mark:|Manual input to prevent misoperation|admin123456|
+
+### 9.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+||||||
+
+### 9.5 Request and Response
+#### 9.5.1
+**Request**:
+
+*`Params`*
+```text
+http://127.0.0.1:1234/api/company/delete?id=1
+```
+*`body`*
+```json
+{
+    "companyName": "Company",
+    "adminEmail": "example@email.com",
+    "adminPassword": "admin123456"
+}
+```
+**Reponse**:
+```text
+Delete Successful.
+```

@@ -6,6 +6,7 @@
 [Project Setup](#2-project-setup)</br>
 [Project Architecture](#3-project-architecture)</br>
 [API Test](#4-api-test)</br>
+[API Documentation](#5-api-documentation)</br>
 
 </div>
 
@@ -127,8 +128,11 @@ You can run the server with the command `npx tsx server.ts`.
 
 To test my API and understand its functionality, you can use Postman. Download the collection file [REST.postman_collection.json](./REST.postman_collection.json) or [click here](https://yiyingpiaopiao.postman.co/workspace/user-api~6adfe4bb-2bc2-4b1d-8ba6-66928967946e/collection/25397697-e8cf12f6-9fa3-44d8-a088-68589638c2f2?action=share&creator=25397697) to access the Postman website.
 
+## 5. API Documentation
+[API Documetation](./API-Doc.md)
+
 ---
 <div align="right">
 
-###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 25-OCT-2024 16:01 UTC +08:00*
+###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 25-OCT-2024 19:01 UTC +08:00*
 </div>
