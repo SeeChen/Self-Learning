@@ -11,7 +11,6 @@
 - [ ] GET
 - [ ] DELETE
 - [ ] PUT
-- [ ] GET
 
 ### 1.3 Request Parameters
 Using: `Body`
@@ -64,7 +63,6 @@ Using: `Body`
 - [ ] GET
 - [ ] DELETE
 - [ ] PUT
-- [ ] GET
 
 ### 2.3 Request Parameters
 Using: `Body`
@@ -116,7 +114,6 @@ Using: `Body`
 - [x] GET
 - [ ] DELETE
 - [ ] PUT
-- [ ] GET
 
 ### 3.3 Request Parameters
 Using: `Params`
@@ -138,12 +135,11 @@ Using: `Params`
 |userCompany||Object|The company to which the user belongs and their permissions.|null|
 
 ### 3.5 Request and Response
-#### 3.5.1
+#### 3.5.1 *Login ID is not the requester's ID*
 **Request**:
 ```text
 http://127.0.0.1:1234/api/users/info?id=1
 ```
-*Login ID is not the requester's ID*
 
 **Reponse**:
 ```json
@@ -155,12 +151,11 @@ http://127.0.0.1:1234/api/users/info?id=1
 }
 ```
 
-#### 3.5.2
-**Request**:
+#### 3.5.2 *Login ID is the requester's ID*
+**Request**: 
 ```text
 http://127.0.0.1:1234/api/users/info?id=1
 ```
-*Login ID is the requester's ID*
 
 **Reponse**:
 ```json
@@ -174,12 +169,11 @@ http://127.0.0.1:1234/api/users/info?id=1
 }
 ```
 
-#### 3.5.3
+#### 3.5.3 *Get information using email*
 **Request**:
 ```text
 http://127.0.0.1:1234/api/users/info?email=example@email.com
 ```
-*Get information using email*
 
 **Reponse**:
 ```json
@@ -189,4 +183,97 @@ http://127.0.0.1:1234/api/users/info?email=example@email.com
     "email": "example@email.com",
     "address": "Adderss"
 }
+```
+## 4. User Update
+> Update information.
+
+### 4.1 URL
+`http://${host}:1234/api/users/update`
+
+### 4.2 Method
+- [ ] POST
+- [ ] GET
+- [ ] DELETE
+- [x] PUT
+
+### 4.3 Request Parameters
+Using: `Body`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|name|String||User New Name|New Name|
+|email|String||User New Email|new_example@mail.com|
+|passwordOld|String|Required if the new password has a value|Old Pawword|Password123546|
+|passwordNew|String||New Password|123456Password|
+|address|String||User New Address|New Address|
+
+### 4.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|id||Number|User Id|1|
+|name||String|User New Name|New Name|
+|email||String|User New Email|new_example@email.com|
+|password||String|Encrypted password|fvmnisufnij|
+|address||String|New User Address|New Address|
+
+### 4.5 Request and Response
+#### 4.5.1
+**Request**:
+```json
+{
+    "name": "New Name",
+    "email": "new_example@email.com",
+    "passwordOld": "",
+    "passwordNew": "",
+    "address": "New Address"
+}
+```
+**Reponse**:
+```json
+{
+    "id": 2,
+    "name": "New Name",
+    "email": "new_example@email.com",
+    "password": "$2a$10$at",
+    "address": "New Address"
+}
+```
+
+## 5. User Delete
+> Update information.
+
+### 5.1 URL
+`http://${host}:1234/api/users/delete`
+
+### 5.2 Method
+- [ ] POST
+- [ ] GET
+- [x] DELETE
+- [ ] PUT
+
+### 5.3 Request Parameters
+Using: `Body`
+|Params|Type|Required|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+|name|String|:heavy_check_mark:|User Name|Name|
+|email|String|:heavy_check_mark:|User Email|example@mail.com|
+|password|String|:heavy_check_mark:|Password|Password123546|
+
+### 5.4 Result Description
+|Params||Type|Description|Example|
+|:--:|:--:|:--:|:--:|:--:|
+||||||
+
+### 5.5 Request and Response
+#### 5.5.1
+**Request**:
+```json
+{
+    "name": "New Name",
+    "email": "new_example@email.com",
+    "password": "Password123456"
+}
+```
+**Reponse**:
+```text
+Delete Successful.
 ```
