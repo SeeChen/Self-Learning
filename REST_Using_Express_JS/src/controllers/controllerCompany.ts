@@ -4,7 +4,7 @@ import { serviceCompany } from "../Services/serviceCompany";
 
 export const companyCreate = async (req: Request, res: Response) => {
 
-    const creatorId = req.cookies["uid"];
+    const creatorId = req.uAuth.uid;
     const { name, address } = req.body;
     try {
 
@@ -22,7 +22,7 @@ export const companyCreate = async (req: Request, res: Response) => {
 
 export const companyGetByKey = async (req: Request, res: Response) => {
 
-    const UID = req.cookies["uid"];
+    const UID = req.uAuth.uid;
     const { id, name } = req.query;
     try {
 
@@ -42,10 +42,9 @@ export const companyGetByKey = async (req: Request, res: Response) => {
 
 export const companyUpdate = async (req: Request, res: Response) => {
 
-    const adminId = req.cookies["uid"];
+    const adminId = req.uAuth.uid;
     const { id } = req.query;
     const { name, address } = req.body;
-
     try {
         
         const company = await serviceCompany.update(
@@ -65,7 +64,7 @@ export const companyUpdate = async (req: Request, res: Response) => {
 
 export const companyDelete = async (req: Request, res: Response) => {
 
-    const uid = req.cookies["uid"];
+    const uid = req.uAuth.uid;
     const { id } = req.query;
     const { companyName, adminEmail, adminPassword } = req.body;
 

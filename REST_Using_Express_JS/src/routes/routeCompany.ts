@@ -1,13 +1,13 @@
 
 import express from 'express';
 
-import { companyCreate, companyGetByKey, companyUpdate, companyDelete } from '../controllers/controllerCompany';
+import { companyAuthVerify } from '../middleware/authCompany';
 
 const routerCompany = express.Router();
 
-routerCompany.post('/create', companyCreate);
-routerCompany.get('/info', companyGetByKey);
-routerCompany.put('/update', companyUpdate);
-routerCompany.delete('/delete', companyDelete);
+routerCompany.post('/create', companyAuthVerify.create);
+routerCompany.get('/info', companyAuthVerify.getInfo);
+routerCompany.put('/update', companyAuthVerify.update);
+routerCompany.delete('/delete', companyAuthVerify.delete);
 
 export default routerCompany;
