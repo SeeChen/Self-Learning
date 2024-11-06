@@ -37,6 +37,12 @@ This repository is for my personal learning.
 - [REST Using Express JS](./REST_Using_Express_JS/)
 - [Document](./REST_Using_Express_JS#readme)
 
+### 1.2 Virtual DOM
+> *Front-end virtual dom implementation*
+
+- [Nametag](./VirtualDOM/)
+- [Document](./VirtualDOM#readme)
+
 ## 2. File ".gitignore"
 All the `.gitignore` files are compressed into this file. However, they are sorted by project name. Each title is centered and marked with three `#`, and below each title is the `.gitignore` content for the project, up to the next title or the `EOF`.
 
@@ -55,5 +61,5 @@ All the `.gitignore` files are compressed into this file. However, they are sort
 ---
 <div align="right">
 
-###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 18-OCT-2024 13:44 UTC +08:00*
+###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 06-NOV-2024 19:40 UTC +08:00*
 </div>
