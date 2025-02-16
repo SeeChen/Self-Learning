@@ -118,7 +118,7 @@
 
 from playwright.sync_api import sync_playwright
 
-PROXY_SERVER = "https://vpn.seechen.life"
+PROXY_SERVER = ""
 
 def intercept_request(route, request):
     print(f"[{request.method}] {request.url}")
@@ -129,7 +129,9 @@ with sync_playwright() as p:
         headless=False,
         proxy={"server": PROXY_SERVER}
     )
-    context = browser.new_context()
+    context = browser.new_context(
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    )
     page = context.new_page()
 
     open_pages = [page]
@@ -148,10 +150,15 @@ with sync_playwright() as p:
 
     page.route("**/*", intercept_request)
 
-    page.goto("https://www.google.com")
+    try:
+        page.goto("https://www.bilibili.com", timeout=0)
+        page.wait_for_selector("body")
+        print("Page loaded successfully!")
+    except Exception as e:
+        print(f"Error: {e}")
 
     while len(open_pages) > 0:
-        open_pages[0].wait_for_event("close")
+        open_pages[0].wait_for_event("close", timeout=0)
         open_pages.pop(0)
 
     print("All tabs closed. Exiting...")
