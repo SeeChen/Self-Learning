@@ -135,7 +135,8 @@ with sync_playwright() as p:
         proxy={"server": f'{res["ip"]}:{res["port"]}'}
     )
     context = browser.new_context(
-        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        viewport={"width": 0, "height": 0}
     )
     page = context.new_page()
 
