@@ -157,7 +157,7 @@ with sync_playwright() as p:
     page.route("**/*", intercept_request)
 
     try:
-        page.goto("https://www.bing.com", timeout=0)
+        page.goto("https://seechen.life", timeout=0)
         page.wait_for_selector("body")
         print("Page loaded successfully!")
     except Exception as e:
