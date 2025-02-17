@@ -28,7 +28,7 @@ var mongoClient *mongo.Client
 
 
 func connectMongoDB() *mongo.Client {
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017") // 修改为你的 MongoDB 地址
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	client, err := mongo.NewClient(clientOptions)
 	if err != nil {
 		log.Fatal("MongoDB connection error:", err)
@@ -47,7 +47,7 @@ func connectMongoDB() *mongo.Client {
 }
 
 func authenticateUser(username, password string) bool {
-	collection := mongoClient.Database("testdb").Collection("users") // 修改为你的数据库和集合
+	collection := mongoClient.Database("Account").Collection("VPN")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
