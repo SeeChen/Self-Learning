@@ -1,7 +1,6 @@
-import times
+import myModule
 
 if __name__ == '__main__':
     print("Hello World!")
-
-    a = times.times(3, 4)
+    a = myModule.my_test()
     print(a)
