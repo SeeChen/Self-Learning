@@ -14,11 +14,12 @@ func typeof(v interface{}) string {
 
 type Numbers interface {
 	int | int8 | int16 | int32 | int64 | float32 | float64 | 
-		uint | uint8 | uint16 | uint32 | uint64 ;
+		uint | uint8 | uint16 | uint32 | uint64 |
+		complex64 | complex128 ;
 }
 func formatStringNumbers[T Numbers](parameter T) string {
 
-	var str string = "%-7s: %d, Byte: %d.";
+	var str string = "%-10s: %v, Byte: %d.";
 	return fmt.Sprintf(str, typeof(parameter), parameter, unsafe.Sizeof(parameter));
 }
 
@@ -82,4 +83,43 @@ func main() {
 	fmt.Printf("rune: %s.\n", typeof(rune_int32));
 
 	// 2.2 Double
+	// Golang's double type must be defined using float32 or float64.
+	// Using float to define a parameter will result in an error.
+	var float_32 float32;
+	var float_64 float64;
+
+	fmt.Println("\n=======================");
+	fmt.Println("Float");
+	fmt.Println("=======================");
+	fmt.Println(formatStringNumbers(float_32));
+	fmt.Println(formatStringNumbers(float_64));
+
+	// In addition, Golang can define complex data types.
+	var complex_064 complex64 ;
+	var complex_128 complex128;
+
+	fmt.Println("\n=======================");
+	fmt.Println("Complex");
+	fmt.Println("=======================");
+	fmt.Println(formatStringNumbers(complex_064));
+	fmt.Println(formatStringNumbers(complex_128));
+	fmt.Println();
+
+	// If need to initialize a value for a complex parameter
+	// Can use the format param = x + yi to initialize the parameter.
+	var complex_eg01 complex128 = 1 + 2i;
+	fmt.Println(complex_eg01, "\n");
+
+	// Can also use the bulit-in function complex() to initialize a value for a parameter.
+	var complex_eg02 complex128 = complex(3  , 4  );
+	var complex_eg03 complex128 = complex(3.1, 4.2);
+	fmt.Println(complex_eg02);
+	fmt.Println(complex_eg03);
+
+	// Of course, we can not only define but also use the buint-in functions
+	// real() and imag() to obtain real and imaginary numbers from complex arguments.
+	NumberReal := real(complex_eg02);
+	NumberImag := imag(complex_eg03);
+	fmt.Println(NumberReal);
+	fmt.Println(NumberImag);
 }
