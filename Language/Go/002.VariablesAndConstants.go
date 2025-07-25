@@ -42,7 +42,31 @@ func main() {
 	fmt.Println();
 	fmt.Printf("%d, %s.\n", intValue, strValue);
 
+	fmt.Println();
 	// #4
 	// Multiple Assignments
-	
+	// Similar to Python, Golang also accepts multiple assignments to identifiers.
+	// Type 1
+	var var1, var2, var3 int;
+	var var4, var5, var6 string = "Var 4", "Var 5", "Var 6";
+	fmt.Printf("%d, %d, %d\n", var1, var2, var3);
+	fmt.Printf("%s, %s, %s\n", var4, var5, var6);
+
+	// Type 2
+	var var7, var8, var9 = 1, "My String", true;
+	fmt.Printf("%v, %v, %v\n", var7, var8, var9);
+
+	// Type 3
+	var10, var11, var12 := "This", false, 9;
+	fmt.Printf("%v, %v, %v\n", var10, var11, var12);
+
+	// Type 4
+	// In generally, the factorization keyword is used to declare global variables.
+	var (
+		var13 int
+		var14 string
+	)
+	var13 = 0;
+	var14 = "String";
+	fmt.Printf("%d, %s\n", var13, var14);
 }
