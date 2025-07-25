@@ -65,8 +65,50 @@ func main() {
 	var (
 		var13 int
 		var14 string
-	)
+	);
 	var13 = 0;
 	var14 = "String";
 	fmt.Printf("%d, %s\n", var13, var14);
+	fmt.Println();
+
+	// Constants, keyword: const
+	// Basically, constants in golang are similar to variables
+	// Whether it is the declaration or use of identifiers.
+	const const1 int = 0;
+	const const2, const3 string = "Const 2", "Const 3";
+
+	fmt.Printf("%d: %s, %s.\n", const1, const2, const3);
+
+	// It is worth mentioning that the symbol := is not supported in statements defined as const.
+	// In general, can use const () to define identifiers as enumerations.
+	const (
+		MALE   int = 0
+		FEMALE int = 1
+		OTHER  int = 2
+	);
+
+	fmt.Printf("Male   is %d\n", MALE  );
+	fmt.Printf("Female is %d\n", FEMALE);
+	fmt.Printf("Other  is %d\n", OTHER );
+	fmt.Println();
+
+	// A special identifier in Golang -- iota
+	// It can be assumed that "iota" can be modified by the compiler
+	const (
+		iota1 int = iota
+		iota2 int = iota
+	)
+	fmt.Println("iota 1: ", iota1);
+	fmt.Println("iota 2: ", iota2);
+	fmt.Println();
+
+	// Or short-form
+	const (
+		iota3 = iota
+		iota4
+		iota5
+	)
+	fmt.Println("iota 1: ", iota3);
+	fmt.Println("iota 2: ", iota4);
+	fmt.Println("iota 3: ", iota5);
 }
