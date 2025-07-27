@@ -24,4 +24,21 @@ func main() {
 	fmt.Printf("a++ = %d.\n", a);
 	a = 15; a--;
 	fmt.Printf("a-- = %d.\n", a);
+	fmt.Println();
+
+	// 2. Relational Operator
+	// Basically, relational operators are used in logical decisions and return a Boolean valu, true or false.
+	fmt.Printf("Symbol \"==\" -- The \"Haha\" is     Equal to \"Haha\": %v.\n", "Haha" == "Haha");	// ==
+	fmt.Printf("Symbol \"!=\" -- The \"Haha\" is Not Equal to \"haha\": %v.\n", "Haha" != "haha");	// !=
+	fmt.Println();
+
+	// > AND >=
+	fmt.Printf("Symbol \"> \" -- 10 >  10 is %v\n", 10 >  10);
+	fmt.Printf("Symbol \">=\" -- 10 >= 10 is %v\n", 10 >= 10);
+	fmt.Println();
+
+	// < AND <=
+	fmt.Printf("Symbol \"< \" -- 10 <  20 is %v\n", 10 <  20);
+	fmt.Printf("Symbol \"<=\" -- 10 <= 20 is %v\n", 10 <= 20);
+	fmt.Println();
 }
