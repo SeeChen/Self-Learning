@@ -5,6 +5,19 @@ import (
 	"fmt"
 )
 
+func binaryBitOperator(p byte, q byte) {
+	fmt.Printf("%b & %b = %b, %b | %b = %b, %b ^ %b = %b.\n", p, q, p & q, p, q, p | q, p, q, p ^ q);
+}
+
+func complicatedBitOperator(i int, j int, o string, x int) {
+	fmt.Printf("%d %s %d = %d\n", i, o, j, x);
+	fmt.Printf("%4d (%012b)\n", i, i);
+	fmt.Printf("%4d (%012b)\n", j, j);
+	fmt.Printf("%4d (%012b)\n", x, x);
+
+	fmt.Println();
+}
+
 func main() {
 	
 	// 1. Arithmetic Operators
@@ -42,5 +55,40 @@ func main() {
 	fmt.Printf("Symbol \"<=\" -- 10 <= 20 is %v\n", 10 <= 20);
 	fmt.Println();
 
-	
+	// 3. Logical Operators
+	// Logical operators are used to perform "AND" and "OR" logical calculations.
+	fmt.Println("Symbol \"&&\"");
+	fmt.Printf("true  && true  = %v.\n", true  && true );
+	fmt.Printf("true  && false = %v.\n", true  && false);
+	fmt.Printf("false && true  = %v.\n", false && true );
+	fmt.Printf("false && false = %v.\n", false && false);
+
+	fmt.Println();
+	fmt.Println("Symbol \"||\"");
+	fmt.Printf("true  || true  = %v.\n", true  || true );
+	fmt.Printf("true  || false = %v.\n", true  || false);
+	fmt.Printf("false || true  = %v.\n", false || true );
+	fmt.Printf("false || false = %v.\n", false || false);
+
+	fmt.Println();
+	fmt.Println("Symbol \"!\"");
+	fmt.Printf("!true  = %v.\n", !true );
+	fmt.Printf("!false = %v.\n", !false);
+
+	// 4. Bitwise Operators
+	// Bitwise operators allow us to manipulate binary bits in memory.
+
+	fmt.Println();
+	fmt.Println("Simple example: ");
+	var p, q byte = 0, 0; binaryBitOperator(p, q);
+	p, q = 0, 1; binaryBitOperator(p, q);
+	p, q = 1, 0; binaryBitOperator(p, q);
+	p, q = 1, 1; binaryBitOperator(p, q);
+	fmt.Println();
+
+	// This is a complicated method to use
+	var i, j int = 121, 10; 
+	complicatedBitOperator(i, j, "&", i & j);
+	complicatedBitOperator(i, j, "|", i | j);
+	complicatedBitOperator(i, j, "^", i ^ j);
 }
