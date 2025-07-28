@@ -18,6 +18,14 @@ func complicatedBitOperator(i int, j int, o string, x int) {
 	fmt.Println();
 }
 
+func shiftOperator(i int, bin int, o string, x int) {
+	fmt.Printf("%d %s %d = %d\n", i, o, bin, x);
+	fmt.Printf("%4d (%012b)\n", i, i);
+	fmt.Printf("%4d (%012b)\n", x, x);
+
+	fmt.Println();
+}
+
 func main() {
 	
 	// 1. Arithmetic Operators
@@ -91,4 +99,9 @@ func main() {
 	complicatedBitOperator(i, j, "&", i & j);
 	complicatedBitOperator(i, j, "|", i | j);
 	complicatedBitOperator(i, j, "^", i ^ j);
+
+	// In addition, we can use bitwise operators to perform binary shift operations.
+	i = 123;
+	shiftOperator(i, 2, ">>", i >> 2);
+	shiftOperator(i, 2, "<<", i << 2);
 }
