@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 func compareTwoNum(i int, j int) string {
@@ -117,8 +118,34 @@ func main() {
 			fmt.Println("20");
 			fallthrough;
 		default:
-			fmt.Println("No Number")
+			fmt.Println("No Number");
 	}
 
 	// 4. select
+	// The select function in Golang is similar to switch
+	// But the diffrence is that select can only accept channel variables.
+	ch1 := make(chan int);
+	ch2 := make(chan int);
+
+	go func() {
+		time.Sleep(2 * time.Second);
+		ch1 <- 1;
+	}()
+	go func() {
+		time.Sleep(1 * time.Second);
+		ch2 <- 2;
+	}()
+
+	select {
+		case msg1 := <-ch1:
+			fmt.Printf("Received from ch1: %d.\n", msg1);
+		case msg2 := <-ch2:
+			fmt.Printf("Received from ch1: %d.\n", msg2);
+		default:
+			// If all threads are blocked.
+			fmt.Println("No Communication ready.");
+	}
+
+	fmt.Println();
+
 }
