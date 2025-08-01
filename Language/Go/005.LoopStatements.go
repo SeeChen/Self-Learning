@@ -56,5 +56,53 @@ func main() {
 	for _, value := range myName {
 		fmt.Printf("%s ", value);
 	}
+	fmt.Println("\n");
+
+	// 4. Nested Loop
+	// Loop within loop
+	// We can use loop statements inside loops and nest any of the above statements.
+	// An example: 9 x 9 Multiplication Table
+	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9};
+	for _, m := range numbers {
+		for n := 1; n <= m; n++ {
+			fmt.Printf("%d x %d = %d, ", m, n, m * n);
+		}
+
+		fmt.Println();
+	}
 	fmt.Println();
+
+	// Loop Control Statements -- Break
+	// In Golang, there are three ways to use break keyword.
+	// 1. In for-loop statement
+	var break_1 int = 0;
+	for ; ; break_1++ {
+		// Normally, this code will cause the codeblock to loop infinitely.
+		fmt.Printf("%d ", break_1);
+
+		// But add a condition to break out of this statement.
+		if break_1 == 10 {
+			fmt.Println("\n");
+			break;
+		}
+	}
+
+	// Or break out of the sub-loop
+	break_1 = 0;
+	for _, m := range numbers {
+		// Using the 9x9 Multiples Table as an example.
+		// In the above case, we know that all results will be displayed.
+
+		for n := 1; n <= m; n++ {
+
+			// But add a condition, if the result is greater than 50, then break.
+			fmt.Printf("%d x %d = %d, ", m, n, m * n);
+			if (m * n > 50) {
+				break;
+			}
+		}
+		fmt.Println();
+	}
+
+	fmt.Println("");
 }
