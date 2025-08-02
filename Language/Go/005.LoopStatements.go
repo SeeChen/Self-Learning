@@ -105,4 +105,44 @@ func main() {
 	}
 
 	fmt.Println("");
+
+	// Loop Control Statements -- Continue
+	// It look like the break keyword, which can end the loginc in the loop early
+	// But it only stops at the current turn, rather than jumping out of the loop
+	for i := 1; i < 100; i++ {
+		var isBreak bool = false;
+
+		for j := 2; j < i; j++ {
+			if (i % j == 0) && (j != i) {
+				fmt.Printf("%d ", i);
+
+				isBreak = true;
+				break;
+			}
+		}
+
+		if isBreak {
+			continue;
+		}
+		fmt.Printf("is not a Prime Number.\n");
+		fmt.Printf("%d is a Prime Number.\n", i);
+	}
+
+	// Loop Control Statement -- goto
+	// The goto statement allows us to logically jump to a specific block of the code.
+	// Typcially, the goto statements is used to idenfify statements and to break out of loops.
+	// The goto statement must be used with a label to jump to a mapped path.
+
+	fmt.Println("\n");
+	var goto_statement int = 0;
+	ALabel: 
+		goto_statement = goto_statement + 1;
+	
+	if goto_statement < 10 {
+
+		fmt.Printf("%d ", goto_statement);
+		goto ALabel;
+	}
+
+	fmt.Println();
 }
