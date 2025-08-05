@@ -40,4 +40,19 @@ func main() {
 	if p == nil {
 		fmt.Println("P is a null Porinter.");
 	}
+
+	// The array pointer
+	// In Golang, to define a pointer array, use var ptr [size]* type
+	var arr = [10]int{1, 3, 5, 7, 9, 2, 4, 6, 8, 10};	// Declare an array
+	var arrPtr1 [10]*int;
+
+	// Use a loop to assign each index
+	for i := 0; i < len(arr); i++ {
+		arrPtr1[i] = &arr[i];
+	}
+	fmt.Println(arrPtr1);
+	for i := 0; i< len(arr); i++ {
+		fmt.Printf("%d, ", *arrPtr1[i]);
+	}
+	fmt.Println();
 }
