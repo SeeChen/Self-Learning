@@ -24,6 +24,36 @@ func main() {
 	slice1[1] = "One"
 	slice1[5] = "String"
 	for i, value := range slice1 {
-		fmt.Printf("No %2d. %s\n", i, value)
+		fmt.Printf("No %2d. %s; ", i, value)
 	}
+	fmt.Println()
+	// Print the slice length
+	fmt.Printf("The lenght of slice is %d\n", len(slice1))
+	// And append an item to this slice
+	slice1 = append(slice1, "Append")
+	fmt.Println(slice1)
+	fmt.Printf("The lenght of slice is %d\n", len(slice1))
+
+	// Make function with capacity
+	slice2 := make([]string, 10, 11)
+	for i, _ := range slice2 {
+		slice2[i] = fmt.Sprintf("Index_%d", i)
+	}
+	// Append one item to the slice, but that's to be expected.
+	slice2 = append(slice2, "FirstAppend")
+	// Print current slice size.
+	fmt.Printf("Current slice2 size: %d\n", len(slice2))
+	// Append again, and print again
+	slice2 = append(slice2, "SecondAppend")
+	fmt.Printf("Current slice2 size: %d\n", len(slice2))
+
+	// len() function and cap() function
+	// The `len` function can get the size of the current slice, which has been demonstrated above.
+	// And `cap` function can get the capacity of the slice, which can calculate the maximum lenght of the slice.
+	fmt.Printf("slice2 length: %d; capacity: %d.\n", len(slice2), cap(slice2))
+
+	// Empty slice
+	// The slice is an empty(nil) slice when the slice is only declare but not initialized.
+	var emptySlice []int
+	fmt.Printf("emptySlice is a nil slice -> %v.\n", nil == emptySlice)
 }
