@@ -56,4 +56,20 @@ func main() {
 	// The slice is an empty(nil) slice when the slice is only declare but not initialized.
 	var emptySlice []int
 	fmt.Printf("emptySlice is a nil slice -> %v.\n", nil == emptySlice)
+	fmt.Println()
+
+	// Slice Extraction
+	// In Golang, can use [lower-bound: upper-bound] to extract a portion of a slice.
+	fmt.Printf("Full slice: %v\n", slice2)
+	fmt.Printf("Get the slice item between index 2 and index 5: %v\n", slice2[2:5])
+	// From the output, we can see that the lower-bound is included and the upper-bound is out of the range.
+	// Therefore, if need to extract from the items with index 0
+	// Can use the [: upper-bound] format
+	fmt.Printf("Start from 0: %v\n", slice2[:4])
+	fmt.Printf("Start from 0: %v\n", slice2[0:4]) // Of course can use this
+
+	// If want to extract the items of a slice up to the last item
+	// Can use the [lower-bound:] format
+	fmt.Printf("End in last item: %v.\n", slice2[3:])
+	fmt.Printf("End in last item: %v.\n", slice2[3:len(slice2)]) // Actually, it's the same as this
 }
