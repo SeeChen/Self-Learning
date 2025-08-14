@@ -29,4 +29,17 @@ func main() {
 	} else {
 		fmt.Println("Middle name does not exists.")
 	}
+
+	// To add a key value to a map variable, can use map[key] = value to do this
+	map2["MiddleName"] = "Handsome"
+	for k, v := range map2 {
+		fmt.Printf("%-10s: %s.\n", k, v)
+	}
+
+	fmt.Println()
+	// But if the key exists in the map variable, this code will change the value in its mapping key.
+	map2["MiddleName"] = "Very Handsome"
+	for k, v := range map2 {
+		fmt.Printf("%-10s: %s.\n", k, v)
+	}
 }
