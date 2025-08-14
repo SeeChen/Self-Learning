@@ -52,4 +52,11 @@ func main() {
 	fmt.Println()
 	delete(map2, "MiddleName")
 	fmt.Println(map2)
+
+	// Check if the map is empty
+	if len(map2) == 0 {
+		fmt.Println("\nMap is empty.")
+	} else {
+		fmt.Println("\nMap contains values.")
+	}
 }
