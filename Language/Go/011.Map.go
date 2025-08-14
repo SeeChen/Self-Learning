@@ -42,4 +42,14 @@ func main() {
 	for k, v := range map2 {
 		fmt.Printf("%-10s: %s.\n", k, v)
 	}
+
+	// Delete function in Golang
+	// To delete an item from a Map variable, use the delete() function.
+	// The delete() function requires two parameters.
+	// The first parameter indicates the map to be deleted.
+	// The second parameter indicates the key to be deleted.
+	// This operation deletes both the key and value from the Map variable passed to the delete function
+	fmt.Println()
+	delete(map2, "MiddleName")
+	fmt.Println(map2)
 }
