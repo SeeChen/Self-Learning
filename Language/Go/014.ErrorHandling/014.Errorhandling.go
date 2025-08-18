@@ -4,7 +4,35 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"strings"
 )
+
+// This is a custom interface that extends the error interface
+type MyError struct {
+	ErrorCode int
+	ErrorMsgs string
+}
+
+func (me *MyError) Error() error {
+	var formatStr string = `
+	Error - %d.
+	Error Message: %d.
+	Error Code: %s.
+	`
+
+	return errors.New(fmt.Sprintf(formatStr, me.ErrorCode, me.ErrorCode, me.ErrorMsgs))
+}
+
+func search(keyword string) (string, error) {
+
+	if !strings.Contains(keyword, "SeeChen") {
+
+		myError := MyError{ErrorCode: 520, ErrorMsgs: "Not Contains \"SeeChen\"."}
+		return "", myError.Error()
+	}
+
+	return "SeeChen is Handsome", nil
+}
 
 // Use error in function
 // This is an example
@@ -38,7 +66,32 @@ func main() {
 	fmt.Println()
 
 	// Or use underscore to ignore error messages
-	example2, _ := Sqrt(4)
+	example2, _ := Sqrt(-4)
 	fmt.Println(example2)
 
+	// Custom Error
+	// We can extend the error interface with custom types
+	_, err = search("Oh! Yeah~")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// fmt package formatting error.
+	// Golang fmt package supports error formatting output
+	// %v : Default output
+	// %+v: All verbose messages are displayed if supported.
+	// %s : Display the message as a string.
+	results, err := search("Lee")
+	if err != nil {
+		// Default output
+		fmt.Printf("%v\n\n", err)
+
+		// Displayed all verbose
+		fmt.Printf("%+v\n\n", err)
+
+		// Displayed as a string
+		fmt.Printf("%s\n\n", err)
+	} else {
+		fmt.Println(results)
+	}
 }
