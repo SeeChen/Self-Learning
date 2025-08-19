@@ -13,22 +13,22 @@ type MyError struct {
 	ErrorMsgs string
 }
 
-func (me *MyError) Error() error {
+func (me *MyError) Error() string {
 	var formatStr string = `
 	Error - %d.
 	Error Message: %d.
 	Error Code: %s.
 	`
 
-	return errors.New(fmt.Sprintf(formatStr, me.ErrorCode, me.ErrorCode, me.ErrorMsgs))
+	return fmt.Sprintf(formatStr, me.ErrorCode, me.ErrorCode, me.ErrorMsgs)
 }
 
 func search(keyword string) (string, error) {
 
 	if !strings.Contains(keyword, "SeeChen") {
 
-		myError := MyError{ErrorCode: 520, ErrorMsgs: "Not Contains \"SeeChen\"."}
-		return "", myError.Error()
+		myError := &MyError{ErrorCode: 520, ErrorMsgs: "Not Contains \"SeeChen\"."}
+		return "", myError
 	}
 
 	return "SeeChen is Handsome", nil
@@ -42,6 +42,13 @@ func Sqrt(f float64) (float64, error) {
 	}
 
 	return math.Sqrt(f), nil
+}
+
+// Here is the errors.Is Example
+var ErrorSeeChen error = errors.New("seechen seechen seechen")
+
+func SeeChen(str string) error {
+	return fmt.Errorf("%w", ErrorSeeChen)
 }
 
 func main() {
@@ -93,5 +100,21 @@ func main() {
 		fmt.Printf("%s\n\n", err)
 	} else {
 		fmt.Println(results)
+	}
+
+	// Starting from Go 1.13, the package error imports errors.Is and errors.As to handle error chains.
+	// errors.Is: Checks whether an error is a specific error or is wrapped by an errors.
+	err = SeeChen("123")
+	if errors.Is(err, ErrorSeeChen) {
+		fmt.Printf("Yes, %v\n", err)
+	} else {
+		fmt.Printf("No, %v\n", err)
+	}
+
+	// errors.As: Convert the error to a special type to facilitate the next step of processing.
+	err = &MyError{ErrorCode: 404, ErrorMsgs: "Not Found"}
+	var myErr *MyError
+	if errors.As(err, &myErr) {
+		fmt.Printf("Error Code: %d\nError Message: %s\n", myErr.ErrorCode, myErr.ErrorMsgs)
 	}
 }
