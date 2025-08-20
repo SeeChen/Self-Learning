@@ -51,6 +51,23 @@ func SeeChen(str string) error {
 	return fmt.Errorf("%w", ErrorSeeChen)
 }
 
+func safeFunction(str string) (results string) {
+	// Must use defer to declare the function before panic
+	// Otherwise the panic error cannot be cought
+	defer func() {
+		if r := recover(); r != nil {
+			results = fmt.Sprintf("Error: %s, Panic Reason: %v", str, r)
+		}
+	}()
+
+	if !strings.Contains(str, "SeeChen") {
+		panic("The string does not contain 'SeeChen'!")
+	}
+
+	results = fmt.Sprintf("Yes!! %s\n", str)
+	return
+}
+
 func main() {
 	// In the Golang standard library, an error interface is defined, which is an abstraction respresenting an error.
 	// This is its definition
@@ -61,6 +78,14 @@ func main() {
 	// We can use the error package in our code to create an error interface and display error messages
 	err := errors.New("this is an error")
 	fmt.Println(err)
+	fmt.Println()
+
+	// Starting from Go 1.20, we can use the Join function to merge multiple errors into one output.
+	err1 := errors.New("First")
+	err2 := errors.New("Second")
+
+	errMerge := errors.Join(err1, err2)
+	fmt.Println(errMerge)
 	fmt.Println()
 
 	// Try to use the sqrt function
@@ -117,4 +142,20 @@ func main() {
 	if errors.As(err, &myErr) {
 		fmt.Printf("Error Code: %d\nError Message: %s\n", myErr.ErrorCode, myErr.ErrorMsgs)
 	}
+
+	// panic and recover
+	// `Panic` in Golang can handle unrecoverable errors, and the `recover` will recover from panic.
+
+	// PANIC
+	// Causes the program to crash and prints a stack trace
+	// Commonly used when the program cannot continue
+
+	// RECOVER
+	// Catch `panic` to prevent program crash.
+	fmt.Println()
+	fmt.Println(safeFunction("SeeChen"))
+	fmt.Println(safeFunction("Lee"))
+
+	fmt.Println("Continue to run!")
+	// Look like try catch finally
 }
