@@ -75,4 +75,38 @@ func main() {
 	p, q := <-ch, <-ch
 
 	fmt.Printf("\n%d + %d = %d\n", p, q, p+q)
+
+	// # Channel Buffer
+	// We can create a buffered Channel by specifying its buffer size as the second argument to the `make` function.
+	// Buffered channels allow senders and receivers to communicate asynchronously, temporarily decoupling the two.
+	// This means that data sent to the channel can be stored in the buffer, waiting to be received later.
+
+	// However, the buffer size is limited. If the buffer is full, the sender will not be able to send any more data until data is retrieved from the buffer.
+
+	// If you don't specify a size, the channel is unbuffered, meaning it has a buffer size of 0.
+	// If the buffer is full, the channel operation will block the sendin goroutine until there is space available.
+
+	var ch1 chan int = make(chan int, 5) // Defined a variable it's five buffer size.
+	ch1 <- 0
+	ch1 <- 1
+
+	go func(ch0 chan int) {
+		for i := 10; i > 0; i-- {
+			ch0 <- i
+			fmt.Printf("Sent: %d\n", i)
+			time.Sleep(100 * time.Millisecond)
+		}
+
+		// Close the channel
+		// Closing the channel is crucial.
+		// If you don't close the channel, the `range` loop will block and wait for more data.
+		// Causing the program to hand or enter a dealock
+		close(ch0)
+	}(ch1)
+
+	// Traverse the Channel
+	for val := range ch1 {
+		fmt.Printf("Received: %d\n", val)
+		time.Sleep(200 * time.Millisecond)
+	}
 }
