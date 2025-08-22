@@ -1,0 +1,3 @@
+Using function: file.WriteString to write data.
+Write data by Byte.
+This is the file: myFile.txt

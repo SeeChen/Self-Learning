@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 )
@@ -31,6 +32,29 @@ func fileOpen(fileName string) {
 	log.Printf("File: \"%s\" Opened!\n", fileName)
 }
 
+// This demo shows 3 ways to write data to a file
+func fileWrite(fileName string) {
+	file, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0777)
+	if err != nil {
+		log.Printf("File: \"%s\" failed to open. Error: %v\n", fileName, err)
+		return
+	}
+
+	defer file.Close()
+	log.Printf("File: \"%s\" is opened!", fileName)
+
+	// First: file.WriteString
+	file.WriteString("Using function: file.WriteString to write data.\n")
+
+	// Second: file.Write by byte
+	data := []byte("Write data by Byte.\n")
+	file.Write(data)
+
+	// Third: Write by fmt.Fprintf
+	fmt.Fprintf(file, "This is the file: %s\n", fileName)
+	log.Printf("Success write data to file: %s.", fileName)
+}
+
 func main() {
 	// File handling is an intergral part of every language
 	// Golang has 4 system packages to handle files
@@ -39,4 +63,7 @@ func main() {
 	var fileName string = "myFile.txt"
 	fileCreate(fileName) // Creating file
 	fileOpen(fileName)   // Opening file
+
+	// # 2. Write & Read
+	fileWrite(fileName) // Write file
 }
