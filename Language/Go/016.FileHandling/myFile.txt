@@ -1,3 +1,6 @@
-Using function: file.WriteString to write data.
-Write data by Byte.
-This is the file: myFile.txt
+
+	Hi, SeeChen here.
+	This is my Golang self-learning document.
+	Each .go file contains my Golang learning notes and related code.
+	
+This row is append by function: fileWriteAppend()
