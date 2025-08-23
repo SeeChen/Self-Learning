@@ -1,6 +1,0 @@
-
-	Hi, SeeChen here.
-	This is my Golang self-learning document.
-	Each .go file contains my Golang learning notes and related code.
-	
-This row is append by function: fileWriteAppend()
