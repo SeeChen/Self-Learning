@@ -130,6 +130,42 @@ func fileWriteAppend(fileName string) {
 	log.Printf("Successfully append %d byte content to file: \"%s\".\n", n, fileName)
 }
 
+// This function is used to simply open a file and read its contents.
+func fileRead(fileName string) {
+	file, err := os.Open(fileName)
+	if err != nil {
+		log.Printf("Failed to open file \"%s\". Error: %v.", fileName, err)
+		return
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file) // Read the complete contents of the file.
+	log.Printf("File \"%s\" is Reading.", fileName)
+	for scanner.Scan() {
+		// This method will cause the content to be read line by line.
+		log.Println(scanner.Text())
+	}
+
+	err = scanner.Err()
+	if err != nil {
+		log.Printf("Error to reading file: %v.", err)
+	}
+}
+
+// Not only allows us read file contents line by line
+// Golang also provides a method to read all file contents at Onec.
+func fileReadAll(fileName string) {
+	content, err := os.ReadFile(fileName)
+	if err != nil {
+		log.Printf("File \"%s\" failed to open! Error: %v.", fileName, err)
+		return
+	}
+
+	var output string = fmt.Sprintf("%s.\n", content)
+	log.Println(output)
+	log.Printf("===")
+}
+
 func main() {
 	// File handling is an intergral part of every language
 	// Golang has 4 system packages to handle files
@@ -145,4 +181,8 @@ func main() {
 	fileWriteRow(fileName)    // Write file by Row
 	fileWriteOnce(fileName)   // Write file once
 	fileWriteAppend(fileName) // Append content to an already existing file with content.
+
+	// Read
+	fileRead(fileName)    // Read a file
+	fileReadAll(fileName) // Read file all content at Once
 }
