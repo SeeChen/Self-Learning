@@ -26,7 +26,7 @@ It also demonstrates:
 - **How to work with complex numbers (`complex()`, `real()`, `imag()`)**
 
 ## 2. Technology
-- **Language**: Go 1.22+
+- **Language**: Go 1.24
 - **Packages Used**:
   - `fmt`: for formatted printing
   - `reflect`: to get type information
@@ -121,8 +121,8 @@ complex128: (0+0i), Byte: 16.
 ## 5. Practice
 1. Print the size of string using unsafe.Sizeof().
 2. Create a complex number 5 + 6i using:
-  - Direct assignment
-  - complex() function
+    - Direct assignment
+    - complex() function
 3. Extract the real and imaginary parts of a complex number using real() and imag().
 4. Define your own generic type constraint for numeric operations (similar to Numbers in the code).
 
