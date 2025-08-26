@@ -1,6 +1,6 @@
 <div align=center>
 
-# Chapter 2: Variables and Constants in Go
+# Chapter 3: Operators in Go
 
 [Summary](#1-summary)</br>
 [Technology](#2-technology)</br>
