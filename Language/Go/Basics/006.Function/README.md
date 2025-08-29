@@ -66,9 +66,9 @@ It demonstrates:
         return fmt.Sprintf("%d", x)
     }
     ```
-    **Closures**:
+    - **Closures**:
         - Functions that capture and use variables from outer scope
-    **Callback Functions**:
+    - **Callback Functions**:
         - Functions passed as arguments to other functions, useful for custom logic
 
 ## 4. Run & Output
