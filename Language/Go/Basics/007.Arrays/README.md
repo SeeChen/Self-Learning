@@ -1,6 +1,6 @@
 <div align=center>
 
-# Chapter 6: Arrays in Go
+# Chapter 7: Arrays in Go
 
 [Summary](#1-summary)</br>
 [Technology](#2-technology)</br>
