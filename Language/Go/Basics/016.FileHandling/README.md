@@ -1,6 +1,6 @@
 <div align=center>
 
-# Chapter 6: File Handling in Go
+# Chapter 16: File Handling in Go
 
 [Summary](#1-summary)</br>
 [Technology](#2-technology)</br>
