@@ -19,3 +19,7 @@ func Warn(msg string) {
 	var str string = fmt.Sprintf("%s - [WARNING] - %s", time.Now().Format(time.RFC3339), msg)
 	fmt.Println(str)
 }
+
+func Config() {
+
+}
