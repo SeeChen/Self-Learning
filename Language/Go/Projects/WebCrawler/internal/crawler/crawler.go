@@ -1,11 +1,12 @@
 package crawler
 
 import (
+	"WebCrawler/internal/models"
 	"WebCrawler/pkg/logger"
 	"fmt"
 )
 
-func Start(url string) []string {
+func Start(url string) []models.Quote {
 	logger.Info(fmt.Sprintf("Fetch: %s.", url))
 
 	html, err := Fetch(url)
