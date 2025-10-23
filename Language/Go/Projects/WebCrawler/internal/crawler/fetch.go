@@ -3,6 +3,7 @@ package crawler
 import (
 	"WebCrawler/pkg/config"
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -164,11 +165,14 @@ func (f *Fetcher) FetchWithRetry(ctx context.Context, url string) (string, error
 //
 //	True if the error should trigger a retry; false otherwise.
 func shouldRetry(err error) bool {
-	// This can be extended for transient network errors, e.g.:
-	//   - Temporary DNS issues
-	//   - Connection resets
-	//   - Timeout errors
-	return err != nil
+	if err == nil {
+		return false
+	}
+	// Example: only retry on transient network errors
+	if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
+		return false
+	}
+	return true
 }
 
 //
