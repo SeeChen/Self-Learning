@@ -52,14 +52,6 @@ type Statistics struct {
 //
 // It constructs internal components such as the Fetcher,
 // Parser, RateLimiter, and Statistics tracker.
-//
-// Args:
-//
-//	cfg: Pointer to a CrawlerConfig providing crawling parameters.
-//
-// Returns:
-//
-//	A pointer to an initialized Crawler instance ready to start crawling.
 func NewCrawler(cfg *config.CrawlerConfig) *Crawler {
 	return &Crawler{
 		config:      cfg,
@@ -77,20 +69,12 @@ func NewCrawler(cfg *config.CrawlerConfig) *Crawler {
 // This method spawns a pool of worker goroutines to process
 // multiple pages concurrently, while respecting rate limits
 // and graceful cancellation through the provided context.
-//
-// Args:
-//
-//	ctx: Context for cancellation and timeout control.
-//	startPage: The first page number to crawl.
-//	endPage: The last page number to crawl.
-//
-// Returns:
-//
-//	A slice of Quote objects collected from all pages, or
-//	an error if any critical failure occurs during the crawl.
 func (c *Crawler) Start(ctx context.Context, startPage, endPage int) ([]models.Quote, error) {
 	logger.Info("Crawler engine started, page range: %d-%d", startPage, endPage)
 	c.stats.StartTime = time.Now()
+
+	defer c.rateLimiter.Stop()
+	defer c.fetcher.Close()
 
 	var (
 		allQuotes []models.Quote
@@ -111,26 +95,25 @@ func (c *Crawler) Start(ctx context.Context, startPage, endPage int) ([]models.Q
 
 	// Feed page numbers into the task channel.
 	go func() {
+		defer close(tasks)
 		for page := startPage; page <= endPage; page++ {
 			select {
 			case <-ctx.Done():
-				close(tasks)
 				return
 			case tasks <- page:
 			}
 		}
-		close(tasks)
 	}()
 
-	// Close channels once all workers finish.
+	// Wait for workers to finish and close result channels.
 	go func() {
 		wg.Wait()
 		close(results)
 		close(errors)
 	}()
 
-	// Collect results and handle errors.
-	for {
+	// Collect results until both channels are closed.
+	for results != nil || errors != nil {
 		select {
 		case quotes, ok := <-results:
 			if !ok {
@@ -150,10 +133,6 @@ func (c *Crawler) Start(ctx context.Context, startPage, endPage int) ([]models.Q
 				continue
 			}
 			logger.Error("Crawling error: %v", err)
-		}
-
-		if results == nil && errors == nil {
-			break
 		}
 	}
 
@@ -186,7 +165,11 @@ func (c *Crawler) worker(
 		case <-ctx.Done():
 			return
 		default:
-			c.rateLimiter.Wait() // Respect rate limits.
+			// Wait for rate limiter token with context awareness.
+			if err := c.rateLimiter.Wait(ctx); err != nil {
+				errors <- fmt.Errorf("rate limiter canceled: %w", err)
+				return
+			}
 
 			quotes, err := c.crawlPage(ctx, page)
 			if err != nil {
@@ -209,15 +192,6 @@ func (c *Crawler) worker(
 //
 // It constructs the URL, fetches HTML content (with retry),
 // parses quotes, and records latency statistics.
-//
-// Args:
-//
-//	ctx: Context for cancellation.
-//	page: The page number to crawl.
-//
-// Returns:
-//
-//	A slice of Quote objects parsed from the page or an error.
 func (c *Crawler) crawlPage(ctx context.Context, page int) ([]models.Quote, error) {
 	url := fmt.Sprintf("%s/page/%d/", c.config.BaseURL, page)
 	start := time.Now()
@@ -247,10 +221,6 @@ func (c *Crawler) crawlPage(ctx context.Context, page int) ([]models.Quote, erro
 // GetStatistics returns a snapshot copy of the current statistics.
 //
 // The returned value is a deep copy to prevent concurrent data races.
-//
-// Returns:
-//
-//	A pointer to a copy of the current Statistics struct.
 func (c *Crawler) GetStatistics() *Statistics {
 	c.stats.mu.RLock()
 	defer c.stats.mu.RUnlock()
@@ -295,15 +265,11 @@ type RateLimiter struct {
 }
 
 // NewRateLimiter creates a new RateLimiter.
-//
-// Args:
-//
-//	ratePerSec: Maximum number of allowed operations per second.
-//
-// Returns:
-//
-//	A pointer to a RateLimiter that can throttle operations accordingly.
 func NewRateLimiter(ratePerSec int) *RateLimiter {
+	if ratePerSec <= 0 {
+		ratePerSec = 1
+	}
+
 	rl := &RateLimiter{
 		ticker:   time.NewTicker(time.Second / time.Duration(ratePerSec)),
 		tokens:   make(chan struct{}, ratePerSec),
@@ -335,16 +301,24 @@ func NewRateLimiter(ratePerSec int) *RateLimiter {
 	return rl
 }
 
-// Wait blocks until a token is available.
-//
-// This method is typically called before performing a rate-limited action.
-func (rl *RateLimiter) Wait() {
-	<-rl.tokens
+// Wait blocks until a token is available or context is canceled.
+func (rl *RateLimiter) Wait(ctx context.Context) error {
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case <-rl.tokens:
+		return nil
+	}
 }
 
 // Stop terminates the rate limiter and stops token replenishment.
 //
 // This should be called during shutdown to release resources.
 func (rl *RateLimiter) Stop() {
-	close(rl.stopChan)
+	select {
+	case <-rl.stopChan:
+		// already closed
+	default:
+		close(rl.stopChan)
+	}
 }
