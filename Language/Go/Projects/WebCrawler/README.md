@@ -3,6 +3,11 @@
 # Golang Project: Web Crawler
 
 [Overview](#1-summary)</br>
+[Architecture](#2-architecture)</br>
+[Environment Setup](#3-environmental-setup)</br>
+[Configuration](#4-configuration)</br>
+[Execution](#5-execution)</br>
+[Future Work](#6-future-work)</br>
 
 </div>
 
@@ -24,7 +29,7 @@ This system is devided into clear, independent modules:
 |[Logger](./pkg/logger/logger.go)|Handles structured, leveled logging|
 |[Models](./internal/models/quote.go)|Defines shared data models (e.g. `Quote`)|
 
-## 3. Environmental Setup
+## 3. Environment Setup
 |CATEGORY|DETAILS|
 |:---:|:---:|
 |OS|Windows 11/Linux/WSL|
