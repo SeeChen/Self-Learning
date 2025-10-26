@@ -6,47 +6,65 @@
 # Self Learning
 
 [Summary](#0-summary)</br>
-[Direction](#1-happy-direction)</br>
+[Direction](#1-happy-learning-route)</br>
 [gitignore](#2-file-gitignore)</br>
 [LICENSE](#3-license)</br>
 
 </div>
 
 ## 0. Summary
-This repository is for my personal learning.
+This repo is my personal self-learning space — experiments, notes, chaos, and joy.
 
-`What is the purpose of learning? `
+`What is the purpose of learning?`
 > ### It is for HAPPINESS.
 
-*Learning makes me happy.*</br>
-*Learning makes me happy.*</br>
-*Learning makes me happy.*</br>
+*Learning makes me happy.*  
+*Learning makes me happy.*  
+*Learning makes me happy.*  
 
-**Important things are said three times !!!**
+**Important things are said three times!!!**
 
-## 1. Happy Direction
+Sometimes I code. Sometimes I stare at my screen wondering why it’s not working.  
+Still, learning is happiness. 😌
+
+## 1. Happy Learning Route
+(Will keep growing as I explore new stuff!)
+
 ### 1.0 Nametag
-> *AI Object Detection via YOLO*
+> *AI Object Detection via YOLO*  
+Just trying to teach computers to “see things.” It’s like magic, but with Python.
 
 - [Nametag](./Nametag/)
 - [Document](./Nametag#readme)
 
 ### 1.1 REST Using Express JS
-> *Building a server with REST API using Express.js and TypeScript.*
+> *Building a server with REST API using Express.js and TypeScript.*  
+Because who doesn’t love a good API and endless debugging?
 
 - [REST Using Express JS](./REST_Using_Express_JS/)
 - [Document](./REST_Using_Express_JS#readme)
 
 ### 1.2 Virtual DOM
-> *Front-end virtual dom implementation*
+> *Front-end virtual DOM implementation.*  
+Reinventing the wheel — just to understand how it spins.
 
-- [Nametag](./VirtualDOM/)
+- [Virtual DOM](./VirtualDOM/)
 - [Document](./VirtualDOM#readme)
 
-## 2. File ".gitignore"
-All the `.gitignore` files are compressed into this file. However, they are sorted by project name. Each title is centered and marked with three `#`, and below each title is the `.gitignore` content for the project, up to the next title or the `EOF`.
+### 1.3 Programming Language
+> *Learn multiple programming languages.*  
+Each new language = one new way to feel confused and amazed.
 
-###### *You don’t know what EOF is? Go learn C ! C Language ❤️ YOU, but you don’t love C Language.*
+- [Language](./Language/)
+- [Document](./Language#readme)
+
+## 2. File ".gitignore"
+All the `.gitignore` files are merged here (sorted by project name).  
+Each section starts with a centered `###` title, followed by the file contents.  
+Simple and neat.
+
+###### *You don’t know what EOF is? Go learn C!  
+C Language ❤️ YOU, but you still ghosted it.*
 
 <div align=center>
 <kbd>
@@ -54,6 +72,8 @@ All the `.gitignore` files are compressed into this file. However, they are sort
 </kbd>
 </div>
 </br>
+
+> *If you made it this far... you deserve a digital kiss 💋*
 
 # 3. LICENSE
 [MIT](./LICENSE) &copy; [LEE SEE CHEN](https://github.com/SeeChen/)
