@@ -57,10 +57,10 @@ Here are some projects I've built while learning Go:
 |Project|Status|Description|
 |:--:|:--:|:--:|
 |[Web Crawler](./Projects/WebCrawler/)|<ul><li>- [x] Completed</li></ul>|A simple crawler to fetch and store web data|
-|Go Language Backend|<ul><li>- [] In Progress</li></ul>||
+|Go Language Backend|<ul><li>- [ ] In Progress</li></ul>||
 
 ---
 <div align="right">
 
-###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 26-OCT-2024 19:30 UTC +08:00*
+###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 26-OCT-2024 19:31 UTC +08:00*
 </div>
