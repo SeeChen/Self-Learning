@@ -3,11 +3,10 @@
 # Golang Learning
 
 [Summary](#1-summary)</br>
-[Environment Setup](#2-environment-setup)</br>
-[Dataset Setup](#3-dataset-setup)</br>
-[Model Training](#4-model-training)</br>
-[Result](#5-result)</br>
-[Running the Training Process](#6-running-the-training-process)
+[Repository Structure](#2-repository-structure)</br>
+[Learning Path](#3-learning-path)</br>
+[Environment Setup](#4-environment-setup)</br>
+[Project Showcase](#5-project-showcase)
 
 </div>
 
@@ -57,11 +56,11 @@ go version
 Here are some projects I've built while learning Go:
 |Project|Status|Description|
 |:--:|:--:|:--:|
-|[Web Crawler](./Projects/WebCrawler/)|[x] Completed|A simple crawler to fetch and store web data|
-|Go Language Backend|[] In Progress||
+|[Web Crawler](./Projects/WebCrawler/)|<ul><li>- [x] Completed</li></ul>|A simple crawler to fetch and store web data|
+|Go Language Backend|<ul><li>- [] In Progress</li></ul>||
 
 ---
 <div align="right">
 
-###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 26-OCT-2024 19:26 UTC +08:00*
+###### *Last Modified by [SeeChen](https://github.com/SeeChen/) @ 26-OCT-2024 19:30 UTC +08:00*
 </div>
