@@ -1,6 +1,6 @@
 <div align=center>
 
-# Chapter 1: Variables and Basic Data Types
+# Chapter 2: Operators in Python
 
 [Summary](#1-summary)</br>
 [Technology](#2-technology)</br>
